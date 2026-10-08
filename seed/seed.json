@@ -1,0 +1,6433 @@
+{
+  "version": "1",
+  "defaultLocale": "zh-CN",
+  "meta": {
+    "name": "Kanade + EmDash",
+    "description": "Kanade theme with database-managed content"
+  },
+  "settings": {
+    "title": "Kanade",
+    "url": "https://duanap.cn"
+  },
+  "collections": [
+    {
+      "slug": "posts",
+      "label": "文章",
+      "labelSingular": "文章",
+      "urlPattern": "/posts/{slug}/",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "search",
+        "seo"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "标题",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "excerpt",
+          "label": "摘要",
+          "type": "text",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "content",
+          "label": "正文",
+          "type": "portableText",
+          "searchable": true
+        },
+        {
+          "slug": "date",
+          "label": "文章日期",
+          "type": "datetime",
+          "indexed": true
+        },
+        {
+          "slug": "cover",
+          "label": "装饰封面",
+          "type": "select",
+          "default": "notes",
+          "validation": {
+            "options": [
+              "astro",
+              "vue",
+              "css",
+              "notes",
+              "life",
+              "typescript",
+              "git",
+              "design"
+            ]
+          }
+        },
+        {
+          "slug": "featured",
+          "label": "置顶标记",
+          "type": "boolean",
+          "default": false
+        },
+        {
+          "slug": "featured_image",
+          "label": "封面图片",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "pages",
+      "label": "页面",
+      "labelSingular": "页面",
+      "urlPattern": "/pages/{slug}/",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "search",
+        "seo"
+      ],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "标题",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "content",
+          "label": "正文",
+          "type": "portableText"
+        }
+      ]
+    }
+  ],
+  "taxonomies": [
+    {
+      "name": "category",
+      "label": "分类",
+      "labelSingular": "分类",
+      "hierarchical": true,
+      "collections": ["posts"],
+      "terms": [
+        {
+          "id": "zh-CN-category-frontend",
+          "slug": "frontend",
+          "label": "前端开发",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-category-notes",
+          "slug": "notes",
+          "label": "开发笔记",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-category-life",
+          "slug": "life",
+          "label": "生活随笔",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "en-category-frontend",
+          "translationOf": "zh-CN-category-frontend",
+          "slug": "frontend",
+          "label": "Frontend",
+          "locale": "en"
+        },
+        {
+          "id": "en-category-notes",
+          "translationOf": "zh-CN-category-notes",
+          "slug": "notes",
+          "label": "Development notes",
+          "locale": "en"
+        },
+        {
+          "id": "en-category-life",
+          "translationOf": "zh-CN-category-life",
+          "slug": "life",
+          "label": "Life",
+          "locale": "en"
+        },
+        {
+          "id": "ja-category-frontend",
+          "translationOf": "zh-CN-category-frontend",
+          "slug": "frontend",
+          "label": "フロントエンド",
+          "locale": "ja"
+        },
+        {
+          "id": "ja-category-notes",
+          "translationOf": "zh-CN-category-notes",
+          "slug": "notes",
+          "label": "開発ノート",
+          "locale": "ja"
+        },
+        {
+          "id": "ja-category-life",
+          "translationOf": "zh-CN-category-life",
+          "slug": "life",
+          "label": "日常",
+          "locale": "ja"
+        }
+      ]
+    },
+    {
+      "name": "tag",
+      "label": "标签",
+      "labelSingular": "标签",
+      "hierarchical": false,
+      "collections": ["posts"],
+      "terms": [
+        {
+          "id": "zh-CN-tag-417374726f",
+          "slug": "tag-417374726f",
+          "label": "Astro",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-567565",
+          "slug": "tag-567565",
+          "label": "Vue",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e680a7e883bde4bc98e58c96",
+          "slug": "tag-e680a7e883bde4bc98e58c96",
+          "label": "性能优化",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-435353",
+          "slug": "tag-435353",
+          "label": "CSS",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e8aebee8aea1",
+          "slug": "tag-e8aebee8aea1",
+          "label": "设计",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e794a8e688b7e4bd93e9aa8c",
+          "slug": "tag-e794a8e688b7e4bd93e9aa8c",
+          "label": "用户体验",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e697a5e5b8b8",
+          "slug": "tag-e697a5e5b8b8",
+          "label": "日常",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e69588e78e87e5b7a5e585b7",
+          "slug": "tag-e69588e78e87e5b7a5e585b7",
+          "label": "效率工具",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-476974",
+          "slug": "tag-476974",
+          "label": "Git",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e5bc80e58f91e7ac94e8aeb0",
+          "slug": "tag-e5bc80e58f91e7ac94e8aeb0",
+          "label": "开发笔记",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e58d9ae5aea2",
+          "slug": "tag-e58d9ae5aea2",
+          "label": "博客",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e68a98e885bee8aeb0e5bd95",
+          "slug": "tag-e68a98e885bee8aeb0e5bd95",
+          "label": "折腾记录",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-54797065536372697074",
+          "slug": "tag-54797065536372697074",
+          "label": "TypeScript",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e7bb84e4bbb6e8aebee8aea1",
+          "slug": "tag-e7bb84e4bbb6e8aebee8aea1",
+          "label": "组件设计",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e7949fe6b4bb",
+          "slug": "tag-e7949fe6b4bb",
+          "label": "生活",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "zh-CN-tag-e7a28ee7a28ee5bfb5",
+          "slug": "tag-e7a28ee7a28ee5bfb5",
+          "label": "碎碎念",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "en-tag-417374726f",
+          "slug": "tag-417374726f",
+          "label": "Astro",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-417374726f"
+        },
+        {
+          "id": "en-tag-567565",
+          "slug": "tag-567565",
+          "label": "Vue",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-567565"
+        },
+        {
+          "id": "en-tag-e680a7e883bde4bc98e58c96",
+          "slug": "tag-e680a7e883bde4bc98e58c96",
+          "label": "Performance",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e680a7e883bde4bc98e58c96"
+        },
+        {
+          "id": "en-tag-435353",
+          "slug": "tag-435353",
+          "label": "CSS",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-435353"
+        },
+        {
+          "id": "en-tag-e8aebee8aea1",
+          "slug": "tag-e8aebee8aea1",
+          "label": "Design",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e8aebee8aea1"
+        },
+        {
+          "id": "en-tag-e794a8e688b7e4bd93e9aa8c",
+          "slug": "tag-e794a8e688b7e4bd93e9aa8c",
+          "label": "User experience",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e794a8e688b7e4bd93e9aa8c"
+        },
+        {
+          "id": "en-tag-e697a5e5b8b8",
+          "slug": "tag-e697a5e5b8b8",
+          "label": "Everyday",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e697a5e5b8b8"
+        },
+        {
+          "id": "en-tag-e69588e78e87e5b7a5e585b7",
+          "slug": "tag-e69588e78e87e5b7a5e585b7",
+          "label": "Productivity",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e69588e78e87e5b7a5e585b7"
+        },
+        {
+          "id": "en-tag-476974",
+          "slug": "tag-476974",
+          "label": "Git",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-476974"
+        },
+        {
+          "id": "en-tag-e5bc80e58f91e7ac94e8aeb0",
+          "slug": "tag-e5bc80e58f91e7ac94e8aeb0",
+          "label": "Development notes",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e5bc80e58f91e7ac94e8aeb0"
+        },
+        {
+          "id": "en-tag-e58d9ae5aea2",
+          "slug": "tag-e58d9ae5aea2",
+          "label": "Blogging",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e58d9ae5aea2"
+        },
+        {
+          "id": "en-tag-e68a98e885bee8aeb0e5bd95",
+          "slug": "tag-e68a98e885bee8aeb0e5bd95",
+          "label": "Project journal",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e68a98e885bee8aeb0e5bd95"
+        },
+        {
+          "id": "en-tag-54797065536372697074",
+          "slug": "tag-54797065536372697074",
+          "label": "TypeScript",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-54797065536372697074"
+        },
+        {
+          "id": "en-tag-e7bb84e4bbb6e8aebee8aea1",
+          "slug": "tag-e7bb84e4bbb6e8aebee8aea1",
+          "label": "Component design",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e7bb84e4bbb6e8aebee8aea1"
+        },
+        {
+          "id": "en-tag-e7949fe6b4bb",
+          "slug": "tag-e7949fe6b4bb",
+          "label": "Life",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e7949fe6b4bb"
+        },
+        {
+          "id": "en-tag-e7a28ee7a28ee5bfb5",
+          "slug": "tag-e7a28ee7a28ee5bfb5",
+          "label": "Little thoughts",
+          "locale": "en",
+          "translationOf": "zh-CN-tag-e7a28ee7a28ee5bfb5"
+        },
+        {
+          "id": "ja-tag-417374726f",
+          "slug": "tag-417374726f",
+          "label": "Astro",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-417374726f"
+        },
+        {
+          "id": "ja-tag-567565",
+          "slug": "tag-567565",
+          "label": "Vue",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-567565"
+        },
+        {
+          "id": "ja-tag-e680a7e883bde4bc98e58c96",
+          "slug": "tag-e680a7e883bde4bc98e58c96",
+          "label": "パフォーマンス",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e680a7e883bde4bc98e58c96"
+        },
+        {
+          "id": "ja-tag-435353",
+          "slug": "tag-435353",
+          "label": "CSS",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-435353"
+        },
+        {
+          "id": "ja-tag-e8aebee8aea1",
+          "slug": "tag-e8aebee8aea1",
+          "label": "デザイン",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e8aebee8aea1"
+        },
+        {
+          "id": "ja-tag-e794a8e688b7e4bd93e9aa8c",
+          "slug": "tag-e794a8e688b7e4bd93e9aa8c",
+          "label": "ユーザー体験",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e794a8e688b7e4bd93e9aa8c"
+        },
+        {
+          "id": "ja-tag-e697a5e5b8b8",
+          "slug": "tag-e697a5e5b8b8",
+          "label": "日常",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e697a5e5b8b8"
+        },
+        {
+          "id": "ja-tag-e69588e78e87e5b7a5e585b7",
+          "slug": "tag-e69588e78e87e5b7a5e585b7",
+          "label": "作業効率",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e69588e78e87e5b7a5e585b7"
+        },
+        {
+          "id": "ja-tag-476974",
+          "slug": "tag-476974",
+          "label": "Git",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-476974"
+        },
+        {
+          "id": "ja-tag-e5bc80e58f91e7ac94e8aeb0",
+          "slug": "tag-e5bc80e58f91e7ac94e8aeb0",
+          "label": "開発ノート",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e5bc80e58f91e7ac94e8aeb0"
+        },
+        {
+          "id": "ja-tag-e58d9ae5aea2",
+          "slug": "tag-e58d9ae5aea2",
+          "label": "ブログ",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e58d9ae5aea2"
+        },
+        {
+          "id": "ja-tag-e68a98e885bee8aeb0e5bd95",
+          "slug": "tag-e68a98e885bee8aeb0e5bd95",
+          "label": "制作記録",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e68a98e885bee8aeb0e5bd95"
+        },
+        {
+          "id": "ja-tag-54797065536372697074",
+          "slug": "tag-54797065536372697074",
+          "label": "TypeScript",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-54797065536372697074"
+        },
+        {
+          "id": "ja-tag-e7bb84e4bbb6e8aebee8aea1",
+          "slug": "tag-e7bb84e4bbb6e8aebee8aea1",
+          "label": "コンポーネント設計",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e7bb84e4bbb6e8aebee8aea1"
+        },
+        {
+          "id": "ja-tag-e7949fe6b4bb",
+          "slug": "tag-e7949fe6b4bb",
+          "label": "暮らし",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e7949fe6b4bb"
+        },
+        {
+          "id": "ja-tag-e7a28ee7a28ee5bfb5",
+          "slug": "tag-e7a28ee7a28ee5bfb5",
+          "label": "ひとりごと",
+          "locale": "ja",
+          "translationOf": "zh-CN-tag-e7a28ee7a28ee5bfb5"
+        }
+      ]
+    }
+  ],
+  "content": {
+    "posts": [
+      {
+        "id": "zh-CN-astro-islands",
+        "slug": "astro-islands",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "从静态到交互，理解 Astro 的岛屿架构",
+          "excerpt": "页面并不总是需要一整座 JavaScript 城市。让内容保持轻盈，把交互留给真正需要它的地方。",
+          "date": "2026-09-15T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "先把内容交给浏览器",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "博客页面的大部分内容都不需要交互：标题、正文、日期以及导航链接，用 HTML 就能完整表达。Astro 默认在服务端或构建阶段渲染组件，把结果交给浏览器。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "这意味着，引入一个 Vue 组件并不等于自动把它的运行时代码发送给用户。没有客户端指令时，它可以只输出静态 HTML。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "一个页面，几座小岛",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "搜索框需要响应输入，主题按钮需要处理点击，文章正文则只负责阅读。把这些交互区域单独激活，就是岛屿架构的一个直观用法。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "---\nimport Search from \"../components/header/Search.vue\";\nimport PersonalCard from \"../components/home/PersonalCard.vue\";\n---\n\n<Search posts={posts} client:load />\n<PersonalCard posts={posts} />",
+              "language": "astro"
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "这里，搜索组件会在浏览器中进行水合，个人卡片只渲染静态内容。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "选择合适的加载时机",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "client:load",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "：页面加载时激活，适合导航和搜索等核心交互。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-20",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "client:idle",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-19",
+                  "text": "：等待浏览器空闲，适合优先级较低的小组件。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": "client:visible",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "：组件进入视口时激活，适合首屏以外的交互。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": "不要为了使用某个指令而使用它。如果组件没有交互，就让它保持静态。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "数据边界也值得设计",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "传给客户端组件的数据会进入页面输出。文章列表只需要标题、摘要、标签和链接，就不必把整篇正文传进去。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-31",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-30",
+                  "text": "为页面定义一份明确的摘要类型，可以同时减少传输量和组件耦合。内容库负责数据来源，界面负责显示，交互组件只拿到自己需要的部分。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-33",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-32",
+                  "text": "轻盈不是功能少",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-35",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-34",
+                  "text": "静态内容与局部交互可以很好地共存。让每一段 JavaScript 都有明确的职责，往往比一味追求框架技巧更能改善体验。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "astro",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-417374726f",
+            "tag-567565",
+            "tag-e680a7e883bde4bc98e58c96"
+          ]
+        }
+      },
+      {
+        "id": "zh-CN-css-small-details",
+        "slug": "css-small-details",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "让界面温柔一点：值得收藏的 CSS 小细节",
+          "excerpt": "圆角、留白、阴影与恰到好处的动效。那些看起来微不足道的细节，决定了一个页面的呼吸感。",
+          "date": "2026-09-12T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "从留白开始",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "当一张卡片显得拥挤时，先别急着缩小字体。试着增加内容间距，减少同一层级的信息数量，给标题和正文明确的节奏。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "留白不是没有内容，而是帮助读者理解内容的关系。标题与摘要应该靠近，不同段落之间则需要更明显的距离。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "阴影只需要一点点",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "柔和的阴影适合表现卡片与背景之间的层次，但过深的投影会让页面显得沉重。使用带一点主题色的低透明度阴影，往往更容易融入整体。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": ".card {\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: 18px;\n  box-shadow: 0 5px 24px #88566a06;\n}",
+              "language": "css"
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "给边框和阴影分工：边框负责清晰度，阴影负责距离感。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "不要让动效抢走注意力",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "悬停时轻轻上移两像素，就足够告诉用户「这里可以点击」。更大的位移和过长的过渡，反而容易打断阅读。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "同时尊重用户的减少动态效果偏好：",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-19",
+              "code": "@media (prefers-reduced-motion: reduce) {\n  html {\n    scroll-behavior: auto;\n  }\n  .card {\n    transition: none;\n  }\n}",
+              "language": "css"
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "让键盘用户也能看见位置",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "不要为了视觉简洁直接删除焦点轮廓。使用 ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-23",
+                  "text": ":focus-visible",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": "，能为键盘操作保留清晰的提示，又不会让每次鼠标点击都出现强烈的描边。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "用设计变量连接深浅主题",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "把背景、卡片、文字和强调色定义成变量，组件就可以共享同一套语义。切换主题只需要调整变量，而不是给每个元素重新指定颜色。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-31",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-30",
+                  "text": "好看的界面，通常不是堆砌装饰，而是反复调整这些小小的关系。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "css",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-435353",
+            "tag-e8aebee8aea1",
+            "tag-e794a8e688b7e4bd93e9aa8c"
+          ]
+        }
+      },
+      {
+        "id": "zh-CN-desk-notes",
+        "slug": "desk-notes",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "整理桌面，也整理一下思绪",
+          "excerpt": "一盏灯、一杯茶、一份短短的待办。给工作空间做一点减法，让注意力回到眼前。",
+          "date": "2026-08-22T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "这是一篇生活分类示例文章，可以替换成你自己的照片与记录。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "从一个小角落开始",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "不必一次整理整个房间。从桌面上最常使用的一小块区域开始，把不用的线材收好，把杯子放回固定的位置。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "整理的目标不是拍出一张漂亮照片，而是让下一次坐下时，可以更快进入状态。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "一份足够短的待办",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "写下今天最希望完成的三件事。它们应该足够具体，比如「读完一篇文章并做笔记」，而不是「努力学习」。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "当任务很大时，把第一步写出来。能马上行动的第一步，通常比一个宏大的标题更有帮助。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "给数字桌面也做减法",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "浏览器标签、下载目录、截图文件，也会慢慢占用注意力。定期归档已经完成的内容，为暂时用不到的资料保留清晰的分类。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "留下一点喜欢的东西",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "整理不等于把桌面清空。一张明信片、一盆植物，或者喜欢的键帽，都可以让这个角落更像自己。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "舒适的工作空间不一定昂贵，但应该适合你真实的生活方式。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "notes",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["life"],
+          "tag": ["tag-e697a5e5b8b8", "tag-e69588e78e87e5b7a5e585b7"]
+        }
+      },
+      {
+        "id": "zh-CN-git-small-commits",
+        "slug": "git-small-commits",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "让 Git 记录更好读，从一次小提交开始",
+          "excerpt": "一次提交只回答一个问题。整理日常开发里几个简单、实用的版本管理习惯。",
+          "date": "2026-08-28T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "先看一眼发生了什么",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "开始修改前查看工作区状态，提交前再阅读一次差异，是成本很低却很有价值的习惯。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-4",
+              "code": "git status --short\ngit diff\ngit diff --staged",
+              "language": "bash"
+            },
+            {
+              "_type": "block",
+              "_key": "md-6",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-5",
+                  "text": "这三个命令分别帮助你确认改动范围、尚未暂存的内容和即将进入提交的内容。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-8",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-7",
+                  "text": "一次提交只做一件事",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-10",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-9",
+                  "text": "如果修复导航链接时顺手重写了全部样式，未来回看这次提交就很难判断每行变更的目的。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "可以先完成链接修复并验证，再把视觉调整放进下一次提交。小提交更容易审查，也更容易定位问题。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "提交信息解释结果",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "比起「更新代码」，「修复移动端导航展开时的文字对比度」能告诉阅读者改动解决了什么问题。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "提交正文可以补充触发条件与验证方式，不必复述差异中已经清楚可见的每一行代码。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-20",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-19",
+                  "text": "给未来的自己留线索",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-22",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": "好的提交记录像一本简短的开发日志。几个月以后，你不必重新猜测当时的上下文，就能理解这个决定。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "git",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["notes"],
+          "tag": [
+            "tag-476974",
+            "tag-e69588e78e87e5b7a5e585b7",
+            "tag-e5bc80e58f91e7ac94e8aeb0"
+          ]
+        }
+      },
+      {
+        "id": "zh-CN-hello-kanade",
+        "slug": "hello-kanade",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "你好，Kanade：给热爱一个安放的地方",
+          "excerpt": "终于，给自己的文字搭了一个小窝。从一行代码到一个完整的博客，记录这个小站的诞生，也记录新的开始。",
+          "date": "2026-09-18T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "这里是 Kanade 的第一篇示例文章。愿每一次记录，都能在未来的某一天与你重逢。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "为什么还要写博客",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "信息流总是很快，快到昨天收藏的内容，今天就找不到了。我想要一个慢一点的地方，把写代码时的思考、解决问题的过程和普通日子里的小事，好好放下来。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "博客不必一开始就拥有很多内容。一篇笔记、一张照片、一个终于想明白的问题，都值得被记录。比起等待一个完美的开场，先写下第一句话更有意义。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "用 Astro 搭起一个小窝",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "Kanade 使用 Astro 生成静态页面，再把需要交互的部分交给 Vue。文章正文在构建时就变成 HTML，打开页面就能阅读；搜索、分类筛选和主题切换则在浏览器中完成。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "项目保留了几个简单的约定：",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "文章存放在 Markdown 文件里，内容和界面分开维护。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "配色集中管理，让深浅主题保持一致。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "分类、标签和文章统计从内容库生成，减少重复更新。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "首屏图片、头像和字体使用本地资源，让页面更加稳定。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "创建一篇文章，只需要在内容目录里新增一个文件：",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-24",
+              "code": "---\ntitle: \"我的下一篇记录\"\ndescription: \"用一两句话描述这篇文章。\"\ndate: 2026-09-20\ncategory: \"开发笔记\"\ntags: [\"博客\"]\ncover: \"notes\"\n---",
+              "language": "yaml"
+            },
+            {
+              "_type": "block",
+              "_key": "md-26",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-25",
+                  "text": "然后在下面开始写正文。构建时，文章会自动出现在列表、搜索和 RSS 中。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-28",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-27",
+                  "text": "关于这个名字",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-30",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-29",
+                  "text": "「奏」有一种轻盈的感觉：把不同的音符放在一起，成为自己的旋律。写代码、听音乐、散步、记录，都是生活里不同的声部。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-32",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-31",
+                  "text": "因此，这个小站叫作 Kanade。没有复杂的目标，只想让每一段文字有个安放的地方。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-34",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-33",
+                  "text": "接下来，慢慢写",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-39",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-35",
+                  "text": "会继续记录前端开发里的发现，也会分享整理工具、阅读和生活的小片段。如果你恰好路过，欢迎去",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-37",
+                  "text": "留言板",
+                  "marks": ["md-36"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-38",
+                  "text": "停一停。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "md-36",
+                  "_type": "link",
+                  "href": "/messages/"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "md-41",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-40",
+                  "text": "愿我们都能在忙碌的日子里，为热爱留下一点空间。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "astro",
+          "featured": true
+        },
+        "taxonomies": {
+          "category": ["notes"],
+          "tag": [
+            "tag-417374726f",
+            "tag-e58d9ae5aea2",
+            "tag-e68a98e885bee8aeb0e5bd95"
+          ]
+        }
+      },
+      {
+        "id": "zh-CN-typescript-boundaries",
+        "slug": "typescript-boundaries",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "TypeScript 笔记：把类型写在数据的边界",
+          "excerpt": "比起为所有变量添加注解，更重要的是让外部数据经过验证，让组件拿到可信的输入。",
+          "date": "2026-09-02T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "类型检查发生在运行之前",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "TypeScript 能帮助我们发现许多结构错误，但类型注解本身不会检查网络响应或本地存储的内容。一个 ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-3",
+                  "text": "as",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": " 断言，只是告诉编译器相信你。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "当数据来自浏览器存储、表单或远程接口时，应当先把它当作未知值。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "先验证，再使用",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "type Note = { id: string; content: string };\n\nfunction isNote(value: unknown): value is Note {\n  if (typeof value !== \"object\" || value === null) return false;\n  return (\n    \"id\" in value &&\n    typeof value.id === \"string\" &&\n    \"content\" in value &&\n    typeof value.content === \"string\"\n  );\n}\n\nfunction parseNote(raw: string): Note | null {\n  try {\n    const value: unknown = JSON.parse(raw);\n    return isNote(value) ? value : null;\n  } catch {\n    return null;\n  }\n}",
+              "language": "ts"
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "这个函数同时处理了 JSON 格式错误和结构不匹配两种情况。对于复杂对象，可以使用 schema 验证库，让约束更集中。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "为失败准备正常路径",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "存储可能被清空，字段可能来自旧版本，用户也可能禁用了持久化。把这些情况视为正常分支，界面才不会因为一个小功能的失败而完全失效。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "简单类型也有价值",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-20",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-19",
+                  "text": "给组件传入文章摘要时，可以明确包含标题、日期、分类和链接，不把整个数据库对象直接透传。类型在这里承担的职责，是解释边界与约定。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "typescript",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": ["tag-54797065536372697074", "tag-e5bc80e58f91e7ac94e8aeb0"]
+        }
+      },
+      {
+        "id": "zh-CN-vue-composables",
+        "slug": "vue-composables",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "写一个刚刚好的 Vue Composable",
+          "excerpt": "从重复逻辑里提取边界，用一个小小的组合式函数，让组件重新专注于界面。",
+          "date": "2026-09-08T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "从具体需求开始",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "当两个组件都需要监听窗口宽度时，可以先写出两份简单实现，再观察它们真正共享了什么。过早抽象通常会把尚未稳定的需求固定下来。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "一个好的 composable，应该有一个清晰、能够用一句话说明的职责。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "生命周期是逻辑的一部分",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "监听事件时，注册与清理必须成对出现。否则组件离开页面之后，旧回调仍可能继续工作。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "import { ref, onMounted, onUnmounted } from \"vue\";\n\nexport function useWindowWidth() {\n  const width = ref(0);\n  const update = () => {\n    width.value = window.innerWidth;\n  };\n\n  onMounted(() => {\n    update();\n    window.addEventListener(\"resize\", update);\n  });\n\n  onUnmounted(() => {\n    window.removeEventListener(\"resize\", update);\n  });\n\n  return { width };\n}",
+              "language": "ts"
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "这个例子在挂载之前保持一个稳定初始值，避免在服务端渲染阶段访问 ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "window",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "。如果页面布局可以用 CSS 完成，优先使用媒体查询。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "返回数据，而不是控制整个界面",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "组合式函数可以提供状态与操作，但不必知道按钮是什么颜色、提示文字放在哪里。把表现层留给组件，复用才会自然。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-20",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-19",
+                  "text": "留下容易理解的接口",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-22",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": "比起一个支持十几种选项的万能函数，三个职责明确的小函数通常更容易维护。抽象的价值，在于让下一位阅读者少想一点。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "vue",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-567565",
+            "tag-54797065536372697074",
+            "tag-e7bb84e4bbb6e8aebee8aea1"
+          ]
+        }
+      },
+      {
+        "id": "zh-CN-weekend-walk",
+        "slug": "weekend-walk",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "周末散步计划：把日子调成慢速",
+          "excerpt": "关掉编辑器，出门走走。风经过树梢的时候，才发现今天也有很多值得收藏的小事。",
+          "date": "2026-09-05T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "这是一篇用于展示生活分类排版的示例随笔。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "给周末留一段空白",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "不安排目的地，也不急着把每一小时填满。带一瓶水，找一双舒服的鞋，就可以出门了。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "在屏幕前坐久了，会习惯用进度条衡量时间：任务完成多少、代码写了几行。散步则不一样，它没有交付日期，也没有必须到达的终点。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "留意那些小事",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "路边的树叶换了一点颜色，面包店的门口飘来香味，有人在长椅上读书。这些事情都很普通，却让一整天重新有了质感。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "可以试着在散步时记录三件小事：",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "今天看见的一种颜色。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "今天听见的一段声音。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "今天忽然想到的一句话。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "不用写成完整的文章，留下几个词也很好。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "把灵感带回去",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": "有时候，一个困了很久的问题，会在离开电脑之后慢慢变得清晰。不是因为散步有什么神奇的效率，而是思考也需要空隙。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "回家以后，给自己泡一杯喜欢的饮料。如果还有心情，就把刚才的几个词写进博客。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "允许自己慢下来",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-31",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-30",
+                  "text": "不是每个周末都需要被充分利用。能好好休息、好好感受天气，也是一件值得认真对待的事。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "life",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["life"],
+          "tag": [
+            "tag-e697a5e5b8b8",
+            "tag-e7949fe6b4bb",
+            "tag-e7a28ee7a28ee5bfb5"
+          ]
+        }
+      },
+      {
+        "id": "en-astro-islands",
+        "slug": "astro-islands",
+        "locale": "en",
+        "translationOf": "zh-CN-astro-islands",
+        "status": "published",
+        "data": {
+          "title": "From static content to interaction: Astro islands",
+          "excerpt": "Give interactive features the JavaScript they need while keeping the rest of a page easy to read and quick to load.",
+          "date": "2026-09-15T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "Start with browser readable content",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "Most of a blog page needs no interaction. HTML can express the title, body, dates, and navigation links. Astro renders components during the build or on the server and sends the result to the browser.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "Importing a Vue component does not automatically send its runtime to the reader. Without a client directive, it can render as static HTML.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "A page with a few islands",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "Search responds to typing, and a theme button responds to clicks. The article itself is there to be read. Hydrating those interactive areas individually is one practical use of islands.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "---\nimport Search from \"../components/header/Search.vue\";\nimport PersonalCard from \"../components/home/PersonalCard.vue\";\n---\n\n<Search posts={posts} client:load />\n<PersonalCard posts={posts} />",
+              "language": "astro"
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "Here, search hydrates in the browser while the personal card produces static content. The surrounding page supplies ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "posts",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": ".",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "Choose when to load",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "client:load",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": " hydrates on page load, suitable for navigation and search.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-22",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "client:idle",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": " waits for browser idle time, useful for lower priority widgets.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-23",
+                  "text": "client:visible",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": " hydrates when the component enters the viewport.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "A component that needs no interaction can remain static.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "Design the data boundary",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-31",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-30",
+                  "text": "Data passed to a client component appears in the page output. A post list needs titles, summaries, tags, and links; it can work with a compact summary instead of an entire body.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-33",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-32",
+                  "text": "An explicit summary type reduces the data sent to the browser and clarifies component responsibilities. The content collection provides the source; each interactive component receives the fields it uses.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-35",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-34",
+                  "text": "Keep each script purposeful",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-37",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-36",
+                  "text": "Static content and local interaction work well together. Giving each piece of JavaScript a clear responsibility helps keep a page comfortable to use.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "astro",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-417374726f",
+            "tag-567565",
+            "tag-e680a7e883bde4bc98e58c96"
+          ]
+        }
+      },
+      {
+        "id": "en-css-small-details",
+        "slug": "css-small-details",
+        "locale": "en",
+        "translationOf": "zh-CN-css-small-details",
+        "status": "published",
+        "data": {
+          "title": "A gentler interface: small CSS details",
+          "excerpt": "Space, rounded corners, soft shadows, and restrained motion give a page room to breathe.",
+          "date": "2026-09-12T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "Begin with space",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "When a card feels crowded, try increasing the gaps between its contents. Group the title with its summary and give separate paragraphs enough distance to show their relationship.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "Whitespace helps readers understand how the content fits together. A clear rhythm is useful even on a small screen.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "A little shadow is enough",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "A soft shadow can separate a card from the background. Low opacity and a hint of the theme color help it fit into the page.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": ".card {\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: 18px;\n  box-shadow: 0 5px 24px #88566a06;\n}",
+              "language": "css"
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "Use the border to define the edge and the shadow to suggest depth.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "Give motion a small role",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "A two pixel lift on hover can signal that something is clickable. Keep transitions brief enough for comfortable reading, and respect the reader’s reduced motion preference:",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-17",
+              "code": "@media (prefers-reduced-motion: reduce) {\n  html {\n    scroll-behavior: auto;\n  }\n  .card {\n    transition: none;\n  }\n}",
+              "language": "css"
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "Make keyboard focus visible",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "Keep a clear focus outline for keyboard users. ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": ":focus-visible",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": " provides a useful way to show the current position during keyboard navigation.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": "Connect themes with variables",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "Define backgrounds, cards, text, and accent colors as shared variables. Switching a theme then updates those values consistently across components.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "A comfortable interface often comes from refining these small relationships.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "css",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-435353",
+            "tag-e8aebee8aea1",
+            "tag-e794a8e688b7e4bd93e9aa8c"
+          ]
+        }
+      },
+      {
+        "id": "en-desk-notes",
+        "slug": "desk-notes",
+        "locale": "en",
+        "translationOf": "zh-CN-desk-notes",
+        "status": "published",
+        "data": {
+          "title": "A clearer desk, a clearer mind",
+          "excerpt": "A lamp, a cup of tea, and a short list. Give your workspace a little room and return attention to the task ahead.",
+          "date": "2026-08-22T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "This is an example post in the everyday life category. Replace it with your own photographs and notes.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "Start with one corner",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "Begin with the part of the desk you use most. Put away unused cables and give your cup a regular place.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "The aim is to make the next time you sit down feel a little easier.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "Keep the list short",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "Write the three things you most want to finish today. Be specific: “Read an article and take notes” gives you an action to begin.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "For a large task, write down the first step. A step you can take immediately is useful direction.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "Clear the digital desk too",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "Browser tabs, downloads, and screenshots slowly take up attention. Archive completed work and keep understandable categories for things you may need later.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "Keep something you like",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "A postcard, a plant, or favorite keycaps can make this corner feel like yours. A comfortable workspace can be simple and should fit the way you actually live.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "notes",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["life"],
+          "tag": ["tag-e697a5e5b8b8", "tag-e69588e78e87e5b7a5e585b7"]
+        }
+      },
+      {
+        "id": "en-git-small-commits",
+        "slug": "git-small-commits",
+        "locale": "en",
+        "translationOf": "zh-CN-git-small-commits",
+        "status": "published",
+        "data": {
+          "title": "Readable Git history begins with a small commit",
+          "excerpt": "Give each commit one clear purpose. A few simple habits make everyday version control easier to follow.",
+          "date": "2026-08-28T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "Look at what changed",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "Check the working tree before editing and read the diff again before committing. These are inexpensive habits with lasting value.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-4",
+              "code": "git status --short\ngit diff\ngit diff --staged",
+              "language": "bash"
+            },
+            {
+              "_type": "block",
+              "_key": "md-6",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-5",
+                  "text": "They show the scope of changes, unstaged edits, and the contents of the next commit.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-8",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-7",
+                  "text": "Give each commit one purpose",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-10",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-9",
+                  "text": "Keep a navigation link fix focused, verify it, and make visual adjustments in a separate commit. A small change is easier to review and easier to investigate later.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "Describe the result",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "“Fix text contrast in the expanded mobile menu” explains the outcome. A commit body can add the conditions that triggered the problem and how the fix was verified.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "Leave clues for your future self",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "A clear history acts as a short development journal. Months later, it can preserve enough context to understand a decision without reconstructing the entire investigation.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "git",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["notes"],
+          "tag": [
+            "tag-476974",
+            "tag-e69588e78e87e5b7a5e585b7",
+            "tag-e5bc80e58f91e7ac94e8aeb0"
+          ]
+        }
+      },
+      {
+        "id": "en-hello-kanade",
+        "slug": "hello-kanade",
+        "locale": "en",
+        "translationOf": "zh-CN-hello-kanade",
+        "status": "published",
+        "data": {
+          "title": "Hello, Kanade: a place for the things we love",
+          "excerpt": "A little home for words, from the first line of code to a complete blog. The story of this site, and a new beginning.",
+          "date": "2026-09-18T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "This is Kanade’s first example post. May the things we record find us again on some future day.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "Why write a blog?",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "Feeds move so quickly that something saved yesterday can disappear from view today. I wanted a slower place to keep thoughts about code, the steps taken to solve a problem, and small moments from ordinary days.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "A blog does not need a large archive to begin. A note, a photograph, or a question finally understood is worth recording. Writing the first sentence is a useful beginning.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "Building a small home with Astro",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "Kanade uses Astro to generate static pages and Vue for the parts that need interaction. Post bodies become HTML during the build, ready to read immediately. Search, category filters, and theme switching run in the browser.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "The project follows a few simple conventions:",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "Posts live in Markdown files, with content maintained separately from the interface.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "Shared color variables keep light and dark themes consistent.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "Categories, tags, and post counts come from the content collection.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "The hero image, avatar, and fonts are local resources.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "Create a Markdown file in ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-23",
+                  "text": "src/content/posts/en/",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": " with frontmatter like this:",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-26",
+              "code": "---\ntitle: \"My next note\"\ndescription: \"Describe this post in a sentence or two.\"\ndate: 2026-09-20\nlang: en\ncategory: notes\ntags: [\"Blogging\"]\ncover: notes\n---",
+              "language": "yaml"
+            },
+            {
+              "_type": "block",
+              "_key": "md-28",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-27",
+                  "text": "Write the body below it. On the next build, the post joins the list, search results, and RSS feed when English is selected.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-30",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-29",
+                  "text": "About the name",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-32",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-31",
+                  "text": "Kanade comes from the Japanese character 奏, associated with playing music. Code, music, walks, and writing can be different parts of a melody of our own.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-34",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-33",
+                  "text": "That is the idea behind this little site: a place where each piece of writing can settle.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-36",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-35",
+                  "text": "Keep writing, little by little",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-41",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-37",
+                  "text": "I hope to record discoveries in frontend development, useful tools, reading, and fragments of everyday life. If you happen to stop by, take a moment at the ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-39",
+                  "text": "guestbook",
+                  "marks": ["md-38"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-40",
+                  "text": ".",
+                  "marks": []
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "md-38",
+                  "_type": "link",
+                  "href": "/messages/"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "md-43",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-42",
+                  "text": "May we all find a little room for the things we love.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "astro",
+          "featured": true
+        },
+        "taxonomies": {
+          "category": ["notes"],
+          "tag": [
+            "tag-417374726f",
+            "tag-e58d9ae5aea2",
+            "tag-e68a98e885bee8aeb0e5bd95"
+          ]
+        }
+      },
+      {
+        "id": "en-typescript-boundaries",
+        "slug": "typescript-boundaries",
+        "locale": "en",
+        "translationOf": "zh-CN-typescript-boundaries",
+        "status": "published",
+        "data": {
+          "title": "TypeScript notes: types at the data boundary",
+          "excerpt": "Validate external data and give components inputs they can trust. Clear boundaries make types useful.",
+          "date": "2026-09-02T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "Type checking happens before runtime",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "TypeScript catches many structural mistakes, but a type annotation does not inspect a network response or browser storage. An ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-3",
+                  "text": "as",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": " assertion asks the compiler to trust a claim.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "Treat data from storage, forms, or remote services as unknown until it has been checked.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "Validate before using",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "type Note = { id: string; content: string };\n\nfunction isNote(value: unknown): value is Note {\n  if (typeof value !== \"object\" || value === null) return false;\n  return (\n    \"id\" in value &&\n    typeof value.id === \"string\" &&\n    \"content\" in value &&\n    typeof value.content === \"string\"\n  );\n}\n\nfunction parseNote(raw: string): Note | null {\n  try {\n    const value: unknown = JSON.parse(raw);\n    return isNote(value) ? value : null;\n  } catch {\n    return null;\n  }\n}",
+              "language": "ts"
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "This handles both invalid JSON and an unexpected structure. A schema validation library can centralize constraints for larger objects.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "Give failure a normal path",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "Storage may be empty, old records may use different fields, and persistence may be disabled. Handling these as ordinary branches helps the rest of the interface keep working.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "Simple types help too",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-20",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-19",
+                  "text": "A post summary can explicitly contain its title, date, category, and link. Passing that summary to a component gives its data boundary a clear contract.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "typescript",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": ["tag-54797065536372697074", "tag-e5bc80e58f91e7ac94e8aeb0"]
+        }
+      },
+      {
+        "id": "en-vue-composables",
+        "slug": "vue-composables",
+        "locale": "en",
+        "translationOf": "zh-CN-vue-composables",
+        "status": "published",
+        "data": {
+          "title": "A Vue composable with a clear purpose",
+          "excerpt": "Extract a small piece of shared logic so components can concentrate on presenting the interface.",
+          "date": "2026-09-08T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "Begin with a concrete need",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "If two components need the window width, write a simple implementation first and observe what they share. A useful composable has a responsibility that can be explained in a sentence.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "Wait until that responsibility is understood before expanding its interface.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "Lifecycle belongs to the logic",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "Pair event registration with cleanup so old callbacks stop running when the component leaves the page.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "import { ref, onMounted, onUnmounted } from \"vue\";\n\nexport function useWindowWidth() {\n  const width = ref(0);\n  const update = () => {\n    width.value = window.innerWidth;\n  };\n\n  onMounted(() => {\n    update();\n    window.addEventListener(\"resize\", update);\n  });\n\n  onUnmounted(() => {\n    window.removeEventListener(\"resize\", update);\n  });\n\n  return { width };\n}",
+              "language": "ts"
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "The stable initial value avoids accessing ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "window",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": " during server rendering. If the requirement is purely about layout, CSS media queries may already provide the behavior you need.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "Return state and actions",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "A composable can provide state and operations while the component chooses button colors, text, and placement. Keeping that presentation in the component makes reuse easier.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-20",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-19",
+                  "text": "Keep the interface understandable",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-22",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": "Several small functions with clear responsibilities can be easier to maintain than one function with many options. The value of an abstraction is how much it helps the next reader understand.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "vue",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-567565",
+            "tag-54797065536372697074",
+            "tag-e7bb84e4bbb6e8aebee8aea1"
+          ]
+        }
+      },
+      {
+        "id": "en-weekend-walk",
+        "slug": "weekend-walk",
+        "locale": "en",
+        "translationOf": "zh-CN-weekend-walk",
+        "status": "published",
+        "data": {
+          "title": "A weekend walk at a slower pace",
+          "excerpt": "Close the editor and head outside. There are small things worth keeping in an ordinary day.",
+          "date": "2026-09-05T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "This is an example essay for the everyday life category. Replace it with your own experiences.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "Leave some open time",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "There is no need to choose a destination or fill every hour. A bottle of water and comfortable shoes are enough to begin.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "After a long time at a screen, it becomes natural to measure the day by completed tasks. A walk gives time a different shape: no delivery date and no required finish line.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "Notice the small things",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "Leaves have changed color a little. A bakery smells warm. Someone is reading on a bench. Ordinary details give the day texture again.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "Try recording three things:",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "A color you saw.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "A sound you heard.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "A sentence that came to mind.",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "A few words are enough to keep the memory.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "Bring an idea home",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": "Sometimes a difficult problem becomes clearer after leaving the computer. Thinking needs space, too.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "Make yourself a favorite drink when you return. If you feel like writing, those few words can become a post.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "Allow yourself to slow down",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-31",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-30",
+                  "text": "A weekend can include real rest. Paying attention to the weather and enjoying some quiet time are worthwhile things to do.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "life",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["life"],
+          "tag": [
+            "tag-e697a5e5b8b8",
+            "tag-e7949fe6b4bb",
+            "tag-e7a28ee7a28ee5bfb5"
+          ]
+        }
+      },
+      {
+        "id": "ja-astro-islands",
+        "slug": "astro-islands",
+        "locale": "ja",
+        "translationOf": "zh-CN-astro-islands",
+        "status": "published",
+        "data": {
+          "title": "静的なページから操作へ：Astro のアイランド",
+          "excerpt": "読みやすい本文は軽く保ち、操作が必要な場所に JavaScript を届ける。その仕組みを整理します。",
+          "date": "2026-09-15T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "まず内容を HTML で届ける",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "ブログのタイトル、本文、日付、リンクは、多くの場合 HTML だけで表現できます。Astro はビルド時またはサーバー側でコンポーネントを描画し、その結果をブラウザに渡します。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "Vue コンポーネントを読み込んだだけで、必ずその実行コードが送られるわけではありません。クライアントディレクティブがなければ、静的な HTML として出力できます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "一つのページに小さな島を置く",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "検索は入力に反応し、テーマボタンはクリックを処理します。記事本文は読むための内容です。操作する領域だけを個別に動かすのが、アイランドの使い方の一例です。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "---\nimport Search from \"../components/header/Search.vue\";\nimport PersonalCard from \"../components/home/PersonalCard.vue\";\n---\n\n<Search posts={posts} client:load />\n<PersonalCard posts={posts} />",
+              "language": "astro"
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "検索はブラウザでハイドレーションされ、プロフィールカードは静的な内容を出力します。",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "posts",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": " は周囲のページで用意するデータです。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "読み込むタイミングを選ぶ",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "client:load",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "：ページ読み込み時に動かします。ナビゲーションや検索向けです。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-22",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "client:idle",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": "：ブラウザの待機時間に動かします。優先度の低い機能に向いています。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-23",
+                  "text": "client:visible",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": "：コンポーネントが画面に入った時点で動かします。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "操作がなければ、静的なまま表示できます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "データの境界も考える",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-31",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-30",
+                  "text": "クライアントコンポーネントに渡したデータは、ページの出力に含まれます。記事一覧に必要なタイトル、概要、タグ、リンクをまとめた要約を渡すと、送信する量を抑えられます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-33",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-32",
+                  "text": "要約の型を定義すると役割も明確になります。コレクションが内容を管理し、コンポーネントは表示に使う項目を受け取ります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-35",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-34",
+                  "text": "JavaScript に役割を持たせる",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-37",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-36",
+                  "text": "静的な内容と部分的な操作は一緒に使えます。それぞれのスクリプトが何を担当するかをはっきりさせると、使いやすいページに近づきます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "astro",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-417374726f",
+            "tag-567565",
+            "tag-e680a7e883bde4bc98e58c96"
+          ]
+        }
+      },
+      {
+        "id": "ja-css-small-details",
+        "slug": "css-small-details",
+        "locale": "ja",
+        "translationOf": "zh-CN-css-small-details",
+        "status": "published",
+        "data": {
+          "title": "画面を少しやさしくする CSS の工夫",
+          "excerpt": "余白、角丸、淡い影、控えめな動き。小さな関係を整えて、読みやすい画面を作ります。",
+          "date": "2026-09-12T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "余白から始める",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "カードが窮屈に見えるときは、内容の間隔を少し広げてみます。タイトルと概要を近くに置き、別の段落には十分な距離を取ると、情報の関係が伝わります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "余白は、読む順序やまとまりを示すためにも使えます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "影は少しだけ",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "淡い影はカードと背景の奥行きを表せます。テーマの色を少し混ぜ、透明度を高くすると、全体になじみやすくなります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": ".card {\n  background: var(--card);\n  border: 1px solid var(--line);\n  border-radius: 18px;\n  box-shadow: 0 5px 24px #88566a06;\n}",
+              "language": "css"
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "境界線で輪郭を示し、影で距離を表すように役割を分けます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "動きは控えめにする",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "ホバー時に二ピクセル上へ動くだけでも、クリックできることは伝わります。短い動きにし、利用者の「視差効果を減らす」設定にも対応します。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-17",
+              "code": "@media (prefers-reduced-motion: reduce) {\n  html {\n    scroll-behavior: auto;\n  }\n  .card {\n    transition: none;\n  }\n}",
+              "language": "css"
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "キーボードの現在位置を示す",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "キーボード操作ではフォーカスの輪郭が大切です。",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": ":focus-visible",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": " を使い、操作中の場所を見つけやすくします。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": "変数でテーマをつなぐ",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "背景、カード、文字、強調色を共通変数として定義します。テーマ変更時に変数を更新すれば、コンポーネント全体で色を合わせられます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "こうした小さな調整の積み重ねが、心地よい画面につながります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "css",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-435353",
+            "tag-e8aebee8aea1",
+            "tag-e794a8e688b7e4bd93e9aa8c"
+          ]
+        }
+      },
+      {
+        "id": "ja-desk-notes",
+        "slug": "desk-notes",
+        "locale": "ja",
+        "translationOf": "zh-CN-desk-notes",
+        "status": "published",
+        "data": {
+          "title": "机を整えて、考えも少し整える",
+          "excerpt": "灯りとお茶と短い予定。作業場所に余白を作り、目の前のことへ意識を戻します。",
+          "date": "2026-08-22T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "暮らしカテゴリのサンプル記事です。自分の写真や記録に置き換えて使えます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "小さな一角から始める",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "よく使う机の一角から片づけます。使っていないケーブルをしまい、カップを置く場所を決めます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "次に座ったとき、少し早く作業に入れるようにするのが目標です。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "予定は短く具体的に",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "今日終えたいことを三つ書きます。「記事を一つ読んでメモする」のように、すぐ動ける内容にします。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "大きな作業なら最初の一歩を書き出します。その一歩が、始めるための手がかりになります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "デジタルの机も整理する",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "ブラウザのタブ、ダウンロード、スクリーンショットも、少しずつ意識を占めます。終わったものを保存し、あとで必要な資料はわかりやすく分類します。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "好きなものを残す",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "ポストカードや植物、お気に入りのキーキャップも、自分らしい場所を作ってくれます。無理のない範囲で、実際の暮らしに合った作業場所を整えていきます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "notes",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["life"],
+          "tag": ["tag-e697a5e5b8b8", "tag-e69588e78e87e5b7a5e585b7"]
+        }
+      },
+      {
+        "id": "ja-git-small-commits",
+        "slug": "git-small-commits",
+        "locale": "ja",
+        "translationOf": "zh-CN-git-small-commits",
+        "status": "published",
+        "data": {
+          "title": "読みやすい Git 履歴は小さなコミットから",
+          "excerpt": "一つのコミットに一つの目的を持たせる。普段の開発で使える、簡単な履歴管理の習慣です。",
+          "date": "2026-08-28T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "何が変わったかを見る",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "作業前に状態を確認し、コミット前に差分を読みます。少ない手間で、変更の範囲を把握できます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-4",
+              "code": "git status --short\ngit diff\ngit diff --staged",
+              "language": "bash"
+            },
+            {
+              "_type": "block",
+              "_key": "md-6",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-5",
+                  "text": "順に、作業ツリーの状態、まだステージしていない変更、次のコミットに入る変更を確認します。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-8",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-7",
+                  "text": "一つの目的にまとめる",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-10",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-9",
+                  "text": "ナビゲーションのリンク修正を終えて確認し、見た目の変更は次のコミットにまとめます。小さな変更はレビューしやすく、あとから問題を探す際にも役立ちます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "結果を説明する",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "「モバイルメニュー展開時の文字コントラストを修正」のように、何が改善したかを書きます。本文には発生条件や確認方法を添えると、背景が伝わります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "未来の自分に手がかりを残す",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "わかりやすい履歴は、短い開発日誌にもなります。数か月後でも、その判断をした理由を理解する助けになります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "git",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["notes"],
+          "tag": [
+            "tag-476974",
+            "tag-e69588e78e87e5b7a5e585b7",
+            "tag-e5bc80e58f91e7ac94e8aeb0"
+          ]
+        }
+      },
+      {
+        "id": "ja-hello-kanade",
+        "slug": "hello-kanade",
+        "locale": "ja",
+        "translationOf": "zh-CN-hello-kanade",
+        "status": "published",
+        "data": {
+          "title": "こんにちは、Kanade：好きなことを置いておく場所",
+          "excerpt": "自分の言葉に小さな居場所を。一行のコードからブログができるまで、このサイトの始まりを記録します。",
+          "date": "2026-09-18T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "Kanade の最初のサンプル記事です。今日の記録が、いつかの自分にまた届きますように。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "ブログを書きたい理由",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "タイムラインはいつも速く流れていきます。昨日保存した情報が、今日はもう見つからないこともあります。コードを書いて考えたこと、問題を解決した手順、何気ない一日の出来事を、少しゆっくり置いておける場所が欲しくなりました。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "最初から記事がたくさんある必要はありません。短いメモ、一枚の写真、ようやく理解できたことも記録になります。まずは最初の一文から始めてみます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "Astro で小さな場所を作る",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "Kanade は Astro で静的なページを生成し、操作が必要な部分に Vue を使っています。記事本文はビルド時に HTML になるので、ページを開けばすぐに読めます。検索、カテゴリの絞り込み、テーマの切り替えはブラウザで動きます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "プロジェクトには、いくつかの簡単なルールがあります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "記事は Markdown に保存し、本文と画面を別々に管理する。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "色は共通の変数で管理し、明るいテーマと暗いテーマに一貫性を持たせる。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "カテゴリ、タグ、記事数はコンテンツコレクションから生成する。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "ヘッダー画像、アバター、フォントはローカルの素材を使う。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "bullet",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "記事を追加するときは、",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-23",
+                  "text": "src/content/posts/ja/",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": " に Markdown ファイルを作ります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-26",
+              "code": "---\ntitle: \"次の記録\"\ndescription: \"この記事を一、二文で紹介します。\"\ndate: 2026-09-20\nlang: ja\ncategory: notes\ntags: [\"ブログ\"]\ncover: notes\n---",
+              "language": "yaml"
+            },
+            {
+              "_type": "block",
+              "_key": "md-28",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-27",
+                  "text": "その下に本文を書けば、日本語を選択したビルドで一覧、検索、RSS に追加されます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-30",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-29",
+                  "text": "名前について",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-32",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-31",
+                  "text": "「奏」には、音を合わせて自分の旋律にしていくような響きがあります。コードを書くこと、音楽を聴くこと、散歩すること、記録すること。それぞれが生活の中の音なのかもしれません。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-34",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-33",
+                  "text": "そこで、この小さなサイトを Kanade と名付けました。一つひとつの言葉に、落ち着ける場所を作っていきたいと思います。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-36",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-35",
+                  "text": "これから少しずつ",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-41",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-37",
+                  "text": "フロントエンド開発で見つけたことや、便利な道具、読書、日々の小さな出来事を書いていく予定です。立ち寄ってくださったら、",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-39",
+                  "text": "メッセージボード",
+                  "marks": ["md-38"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-40",
+                  "text": "も覗いてみてください。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [
+                {
+                  "_key": "md-38",
+                  "_type": "link",
+                  "href": "/messages/"
+                }
+              ]
+            },
+            {
+              "_type": "block",
+              "_key": "md-43",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-42",
+                  "text": "忙しい日にも、好きなことのための余白が残りますように。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "astro",
+          "featured": true
+        },
+        "taxonomies": {
+          "category": ["notes"],
+          "tag": [
+            "tag-417374726f",
+            "tag-e58d9ae5aea2",
+            "tag-e68a98e885bee8aeb0e5bd95"
+          ]
+        }
+      },
+      {
+        "id": "ja-typescript-boundaries",
+        "slug": "typescript-boundaries",
+        "locale": "ja",
+        "translationOf": "zh-CN-typescript-boundaries",
+        "status": "published",
+        "data": {
+          "title": "TypeScript メモ：データの境界に型を書く",
+          "excerpt": "外部のデータを検証し、コンポーネントに信頼できる入力を渡すための基本を整理します。",
+          "date": "2026-09-02T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "型検査は実行前に行われる",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "TypeScript は構造の間違いを見つける助けになりますが、型注釈そのものは通信結果やブラウザの保存内容を検査しません。",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-3",
+                  "text": "as",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": " はコンパイラにその型だと伝える指定です。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "ストレージ、フォーム、外部 API から来た値は、確認するまで未知の値として扱います。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "検証してから使う",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "type Note = { id: string; content: string };\n\nfunction isNote(value: unknown): value is Note {\n  if (typeof value !== \"object\" || value === null) return false;\n  return (\n    \"id\" in value &&\n    typeof value.id === \"string\" &&\n    \"content\" in value &&\n    typeof value.content === \"string\"\n  );\n}\n\nfunction parseNote(raw: string): Note | null {\n  try {\n    const value: unknown = JSON.parse(raw);\n    return isNote(value) ? value : null;\n  } catch {\n    return null;\n  }\n}",
+              "language": "ts"
+            },
+            {
+              "_type": "block",
+              "_key": "md-12",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "JSON の形式エラーと、構造が合わない場合の両方に対応しています。複雑なデータには、スキーマ検証ライブラリで制約をまとめる方法もあります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": "失敗も通常の分岐にする",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "ストレージが空だったり、古い形式のデータが残っていたり、保存が無効だったりすることもあります。こうした場合を処理しておけば、他の機能を引き続き使えます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "小さな型にも意味がある",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-20",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-19",
+                  "text": "記事の要約にタイトル、日付、カテゴリ、リンクを明示すると、コンポーネントが必要なデータを受け取れます。型はその境界と約束を説明する役割を持ちます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "typescript",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": ["tag-54797065536372697074", "tag-e5bc80e58f91e7ac94e8aeb0"]
+        }
+      },
+      {
+        "id": "ja-vue-composables",
+        "slug": "vue-composables",
+        "locale": "ja",
+        "translationOf": "zh-CN-vue-composables",
+        "status": "published",
+        "data": {
+          "title": "役割がわかる Vue Composable を書く",
+          "excerpt": "共有する処理を小さく取り出し、コンポーネントが画面の表示に集中できるようにします。",
+          "date": "2026-09-08T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "具体的な必要性から始める",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "二つのコンポーネントで画面幅を知りたいなら、まず簡単に実装し、どの処理が共通しているかを確かめます。Composable の役割を一文で説明できると、使い方もわかりやすくなります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "役割が見えてから、必要に応じてインターフェースを広げます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "ライフサイクルも処理の一部",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "イベントの登録と解除を対にします。コンポーネントがページから離れたあとに、古いコールバックが残らないようにします。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "code",
+              "_key": "md-10",
+              "code": "import { ref, onMounted, onUnmounted } from \"vue\";\n\nexport function useWindowWidth() {\n  const width = ref(0);\n  const update = () => {\n    width.value = window.innerWidth;\n  };\n\n  onMounted(() => {\n    update();\n    window.addEventListener(\"resize\", update);\n  });\n\n  onUnmounted(() => {\n    window.removeEventListener(\"resize\", update);\n  });\n\n  return { width };\n}",
+              "language": "ts"
+            },
+            {
+              "_type": "block",
+              "_key": "md-14",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-11",
+                  "text": "初期値を固定し、マウント後に ",
+                  "marks": []
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "window",
+                  "marks": ["code"]
+                },
+                {
+                  "_type": "span",
+                  "_key": "md-13",
+                  "text": " を参照すると、サーバー描画時にも扱いやすくなります。レイアウトだけなら、CSS のメディアクエリで対応できる場合もあります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-16",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-15",
+                  "text": "状態と操作を返す",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-18",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-17",
+                  "text": "Composable は状態と操作を提供し、色や文章、配置はコンポーネントで決めます。表示の判断を画面側に置くと再利用しやすくなります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-20",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-19",
+                  "text": "理解しやすい入口を作る",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-22",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-21",
+                  "text": "役割が明確な小さい関数は、選択肢が多い一つの関数より管理しやすいことがあります。次に読む人が処理を理解しやすいか、という視点で抽象化を考えます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "vue",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["frontend"],
+          "tag": [
+            "tag-567565",
+            "tag-54797065536372697074",
+            "tag-e7bb84e4bbb6e8aebee8aea1"
+          ]
+        }
+      },
+      {
+        "id": "ja-weekend-walk",
+        "slug": "weekend-walk",
+        "locale": "ja",
+        "translationOf": "zh-CN-weekend-walk",
+        "status": "published",
+        "data": {
+          "title": "週末の散歩：少しゆっくり過ごす",
+          "excerpt": "エディターを閉じて外へ。風や木々の間に、残しておきたい小さな出来事を探します。",
+          "date": "2026-09-05T00:00:00.000Z",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "暮らしカテゴリの表示を確認するためのサンプル記事です。自分の体験に置き換えてください。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "週末に余白を残す",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "行き先を決めず、予定を詰め込まずに歩いてみます。水と歩きやすい靴があれば、出かける準備はできます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "画面の前に長くいると、完了した作業で時間を測りがちです。散歩には締め切りも、必ず着くべき場所もありません。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "小さなことに気づく",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "葉の色が少し変わり、パン屋から香りが届き、ベンチで誰かが本を読んでいます。普通の出来事でも、一日の手触りが戻ってきます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "三つだけ記録してみます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "今日見た色。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "今日聞いた音。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "ふと浮かんだ一文。",
+                  "marks": []
+                }
+              ],
+              "markDefs": [],
+              "listItem": "number",
+              "level": 1
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "短い言葉だけでも、思い出の手がかりになります。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "思いつきを持ち帰る",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-25",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-24",
+                  "text": "パソコンから離れている間に、悩んでいた問題が整理されることもあります。考えることにも余白が必要なのだと思います。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-27",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-26",
+                  "text": "帰ったら好きな飲み物を用意して、書きたくなったらその言葉をブログに残します。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-29",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-28",
+                  "text": "ゆっくり休んでもいい",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-31",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-30",
+                  "text": "週末には、休む時間があってもいい。天気を感じたり、静かに過ごしたりすることも、大切にしたい時間です。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ],
+          "cover": "life",
+          "featured": false
+        },
+        "taxonomies": {
+          "category": ["life"],
+          "tag": [
+            "tag-e697a5e5b8b8",
+            "tag-e7949fe6b4bb",
+            "tag-e7a28ee7a28ee5bfb5"
+          ]
+        }
+      }
+    ],
+    "pages": [
+      {
+        "id": "zh-CN-about",
+        "slug": "about",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "关于",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "关于我",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "你好，我是{name}。喜欢把想法变成可以使用的东西，也喜欢在折腾的过程中，慢慢弄懂「为什么」。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "这里是我的个人博客，分享前端开发、工具实践和一些生活记录。不追求每篇文章都面面俱到，只希望真实地留下思考与成长的过程。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "保持好奇，认真生活。做一点自己喜欢的事，也把喜欢分享给别人。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "正在折腾什么",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "把灵感变成小小的作品",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "收藏平凡日子里的亮光",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "关于 {site}",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "{site}，一个记录热爱的小站。名字来自「奏」的读音，希望文字与代码也能像音符一样，组成属于自己的旋律。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "小站使用 Astro、Vue 与 Tailwind CSS 构建。粉色、圆角、轻轻流动的波浪，是想留给每位访客的一点温柔。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "关于这里的内容",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "当前文章用于展示小站的阅读与分类体验，生活随笔已标注为示例。后续会逐步替换成真实的学习笔记与日常记录。文章中若有疏漏，欢迎通过 GitHub 交流。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      },
+      {
+        "id": "en-about",
+        "slug": "about",
+        "locale": "en",
+        "translationOf": "zh-CN-about",
+        "status": "published",
+        "data": {
+          "title": "About",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "About me",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "Hi, I’m {name}. I enjoy turning ideas into useful things and learning why they work along the way.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "This is my personal blog about frontend development, tools, and everyday life. I want to keep an honest record of learning and growing, one post at a time.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "Stay curious and live thoughtfully. Make time for what you love, and share a little of it.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "What I’m exploring",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "Turn an idea into a small project",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "Keep the bright spots in ordinary days",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "About {site}",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "{site} is a place to record what I love. Its name comes from 奏, “to play music”: words and code can become notes in a melody of our own.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "Built with Astro, Vue, and Tailwind CSS. Pink tones, rounded corners, and gentle waves offer a quiet welcome.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "About the content",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "The included posts are examples of reading and category layouts, including the everyday essays. Replace them with your own notes and stories. Corrections are welcome on GitHub.",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      },
+      {
+        "id": "ja-about",
+        "slug": "about",
+        "locale": "ja",
+        "translationOf": "zh-CN-about",
+        "status": "published",
+        "data": {
+          "title": "このサイトについて",
+          "content": [
+            {
+              "_type": "block",
+              "_key": "md-1",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-0",
+                  "text": "自己紹介",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-3",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-2",
+                  "text": "こんにちは、{name}です。アイデアを使える形にすること、試行錯誤をしながら「なぜ」を理解することが好きです。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-5",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-4",
+                  "text": "このブログではフロントエンド開発、ツールの実践、暮らしの記録を共有しています。考えたことや成長の過程を、ありのままに残していきたいと思っています。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-7",
+              "style": "blockquote",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-6",
+                  "text": "好奇心を持ち、日々を丁寧に。好きなことを少しずつ続け、その楽しさを分かち合う。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-9",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-8",
+                  "text": "いま取り組んでいること",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-11",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-10",
+                  "text": "ひらめきを小さな作品に",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-13",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-12",
+                  "text": "何気ない日々の光を集める",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-15",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-14",
+                  "text": "{site} について",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-17",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-16",
+                  "text": "{site} は好きなことを記録する小さなサイトです。「奏」という言葉のように、文章とコードで自分らしい旋律を作れたらと思っています。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-19",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-18",
+                  "text": "Astro、Vue、Tailwind CSS で作りました。ピンクの色合い、丸い角、ゆるやかな波で、訪れる方をやさしく迎えます。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-21",
+              "style": "h2",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-20",
+                  "text": "掲載内容について",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            },
+            {
+              "_type": "block",
+              "_key": "md-23",
+              "style": "normal",
+              "children": [
+                {
+                  "_type": "span",
+                  "_key": "md-22",
+                  "text": "掲載記事は読書画面やカテゴリーを紹介するサンプルです。暮らしの記事にもサンプルと明記しています。ご自身の記録に置き換えてご利用ください。修正の提案は GitHub で歓迎します。",
+                  "marks": []
+                }
+              ],
+              "markDefs": []
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

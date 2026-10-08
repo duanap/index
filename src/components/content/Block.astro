@@ -1,0 +1,22 @@
+---
+interface Props {
+  node: { _key?: string; style?: string; textAlign?: string };
+}
+const { node } = Astro.props;
+const heading = /^h[1-6]$/.test(node.style || "");
+const Tag = (
+  heading ? node.style : node.style === "blockquote" ? "blockquote" : "p"
+) as keyof HTMLElementTagNameMap;
+const align = ["left", "right", "center", "justify"].includes(
+  node.textAlign || "",
+)
+  ? node.textAlign
+  : undefined;
+---
+
+<Tag
+  id={heading ? `h-${node._key}` : undefined}
+  style={align ? `text-align:${align}` : undefined}
+>
+  <slot />
+</Tag>

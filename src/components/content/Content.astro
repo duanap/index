@@ -1,0 +1,15 @@
+---
+import { PortableText } from "emdash/ui";
+import type { PortableTextBlock } from "emdash";
+import Block from "./Block.astro";
+import Code from "./Code.astro";
+import Image from "./Image.astro";
+interface Props {
+  value: PortableTextBlock[];
+}
+---
+
+<PortableText
+  value={Astro.props.value}
+  components={{ block: Block, type: { code: Code, image: Image } }}
+/>

@@ -1,0 +1,84 @@
+{
+  "name": "kanade-emdash",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "pnpm check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "check": "astro sync && astro check && vue-tsc --noEmit",
+    "test": "pnpm test:unit && pnpm build && pnpm test:e2e && pnpm test:cms",
+    "test:e2e": "playwright test",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "setup": "node --env-file-if-exists=.env scripts/setup.mjs && node --env-file-if-exists=.env scripts/seed.mjs",
+    "seed:generate": "tsx scripts/content/seed.ts",
+    "test:unit": "tsx --test tests/unit/*.test.*",
+    "start": "node --env-file-if-exists=.env dist/server/entry.mjs",
+    "test:cms": "playwright test --config playwright.cms.config.ts"
+  },
+  "dependencies": {
+    "@astrojs/node": "11.1.7",
+    "@astrojs/react": "7.0.1",
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@astrojs/vue": "^7.0.3",
+    "@fontsource-variable/jetbrains-mono": "5.3.0",
+    "@fontsource-variable/noto-sans": "5.3.0",
+    "@fontsource-variable/noto-sans-jp": "5.3.0",
+    "@fontsource-variable/noto-sans-sc": "5.3.0",
+    "@tailwindcss/typography": "^0.5.20",
+    "@tailwindcss/vite": "^4.3.3",
+    "astro": "^7.3.7",
+    "emdash": "1.2.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sharp": "0.35.5",
+    "tailwindcss": "^4.3.3",
+    "unstorage": "1.17.5",
+    "vue": "^3.5.43"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@iconify-json/basil": "^1.2.4",
+    "@iconify-json/bx": "^1.2.3",
+    "@iconify-json/jam": "^1.2.3",
+    "@iconify-json/lucide": "^1.2.141",
+    "@iconify-json/material-symbols": "^1.2.94",
+    "@iconify-json/mingcute": "^1.2.8",
+    "@iconify-json/mynaui": "^1.2.19",
+    "@iconify-json/simple-icons": "^1.2.99",
+    "@iconify/tailwind4": "^1.2.3",
+    "@playwright/test": "^1.64.0",
+    "@types/mdast": "4.0.4",
+    "@types/node": "^24.19.1",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "gray-matter": "4.0.3",
+    "mdast-util-from-markdown": "2.1.0",
+    "prettier": "^3.9.9",
+    "prettier-plugin-astro": "^1.1.0",
+    "tsx": "4.23.15",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.3",
+    "vue-tsc": "^3.3.12"
+  },
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10.33.0 <11"
+  },
+  "packageManager": "pnpm@10.33.0",
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ],
+    "overrides": {
+      "@tailwindcss/typography>postcss-selector-parser": "^7.1.6"
+    }
+  },
+  "private": true,
+  "emdash": {
+    "seed": "seed/seed.json"
+  }
+}

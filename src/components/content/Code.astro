@@ -1,0 +1,46 @@
+---
+import { Code } from "astro:components";
+interface Props {
+  node: { code?: string; language?: string };
+}
+const { node } = Astro.props;
+const supported = [
+  "js",
+  "javascript",
+  "ts",
+  "typescript",
+  "css",
+  "html",
+  "json",
+  "yaml",
+  "bash",
+  "sh",
+  "markdown",
+  "vue",
+  "astro",
+  "python",
+  "sql",
+  "text",
+];
+const lang = (
+  supported.includes(node.language || "") ? node.language! : "text"
+) as
+  | "js"
+  | "javascript"
+  | "ts"
+  | "typescript"
+  | "css"
+  | "html"
+  | "json"
+  | "yaml"
+  | "bash"
+  | "sh"
+  | "markdown"
+  | "vue"
+  | "astro"
+  | "python"
+  | "sql"
+  | "text";
+---
+
+<Code code={node.code || ""} lang={lang} theme="github-dark" />

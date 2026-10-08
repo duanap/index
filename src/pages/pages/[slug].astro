@@ -1,0 +1,16 @@
+---
+import { getPage } from "../../lib/posts";
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import Content from "../../components/content/Content.astro";
+const page = await getPage(Astro.params.slug!);
+if (!page) return Astro.rewrite("/404/");
+---
+
+<BlogLayout title={page.data.title} seo={page.data.seo}>
+  <article class="card page-card">
+    <h1>{page.data.title}</h1>
+    <div class="prose">
+      <Content value={page.data.content || []} />
+    </div>
+  </article>
+</BlogLayout>

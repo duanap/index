@@ -1,0 +1,91 @@
+---
+import { MediaRepository } from "emdash";
+import { getDb } from "emdash/runtime";
+import { prepareDerivative } from "../../lib/media/derivatives";
+import { webpUrl } from "../../lib/media/urls";
+interface Props {
+  node: {
+    asset?: {
+      _ref?: string;
+      url?: string;
+      src?: string;
+      alt?: string;
+      width?: number;
+      height?: number;
+      meta?: Record<string, unknown>;
+    };
+    alt?: string;
+    caption?: string;
+    width?: number;
+    height?: number;
+    displayWidth?: number;
+    displayHeight?: number;
+    link?: string | { href: string; blank?: boolean };
+  };
+}
+const { node } = Astro.props;
+let asset = node.asset;
+if (asset?._ref && !asset.url && !asset.src) {
+  const media = await new MediaRepository(await getDb()).findById(asset._ref);
+  if (media?.status === "ready")
+    asset = {
+      ...asset,
+      width: media.width || undefined,
+      height: media.height || undefined,
+      url: `/_emdash/api/media/file/${media.storageKey.split("/").map(encodeURIComponent).join("/")}`,
+    };
+}
+const raw =
+  asset?.url ||
+  asset?.src ||
+  (asset?.meta?.storageKey
+    ? `/_emdash/api/media/file/${asset.meta.storageKey}`
+    : undefined);
+const src = webpUrl(raw);
+const localPrefix = "/_emdash/api/media/file/";
+const derivative = raw?.startsWith(localPrefix)
+  ? await prepareDerivative(
+      decodeURIComponent(raw.slice(localPrefix.length).split("?")[0]!),
+    )
+  : null;
+const imageWidth =
+  node.displayWidth || derivative?.width || node.width || asset?.width;
+const imageHeight =
+  node.displayHeight || derivative?.height || node.height || asset?.height;
+const alt = node.alt || asset?.alt || "";
+const link = typeof node.link === "string" ? node.link : node.link?.href;
+const safeLink =
+  link &&
+  (/^https?:\/\//.test(link) ||
+    (link.startsWith("/") && !link.startsWith("//")) ||
+    link.startsWith("#"))
+    ? link
+    : undefined;
+---
+
+{src && (
+  <figure>
+    {safeLink ? (
+      <a href={safeLink}>
+        <img
+          src={src}
+          alt={alt}
+          width={imageWidth}
+          height={imageHeight}
+          loading="lazy"
+          decoding="async"
+        />
+      </a>
+    ) : (
+      <img
+        src={src}
+        alt={alt}
+        width={imageWidth}
+        height={imageHeight}
+        loading="lazy"
+        decoding="async"
+      />
+    )}
+    {node.caption && <figcaption>{node.caption}</figcaption>}
+  </figure>
+)}

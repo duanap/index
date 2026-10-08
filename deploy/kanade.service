@@ -1,0 +1,28 @@
+[Unit]
+Description=Kanade with EmDash (duanap.cn)
+After=network.target
+
+[Service]
+Type=simple
+User=kanade
+Group=kanade
+WorkingDirectory=/www/wwwroot/duanap.cn
+EnvironmentFile=/www/kanade-data/duanap.cn/site.env
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=4321
+Environment=NODE_OPTIONS=--max-old-space-size=1536
+ExecStart=/opt/node24/bin/node dist/server/entry.mjs
+Restart=on-failure
+RestartSec=5
+TimeoutStopSec=30
+MemoryMax=2G
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/www/kanade-data/duanap.cn
+
+[Install]
+WantedBy=multi-user.target
