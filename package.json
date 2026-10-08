@@ -31,7 +31,8 @@
     "@tailwindcss/typography": "^0.5.20",
     "@tailwindcss/vite": "^4.3.3",
     "astro": "^7.3.7",
-    "emdash": "1.2.0",
+    "emdash": "file:vendor/emdash-1.2.0-duanap-bb448eaf.tgz",
+    "lucide-react": "1.49.0",
     "react": "19.3.0",
     "react-dom": "19.3.0",
     "sharp": "0.35.5",
@@ -74,6 +75,7 @@
       "esbuild"
     ],
     "overrides": {
+      "@emdash-cms/admin": "file:vendor/emdash-cms-admin-1.2.0-duanap-bb448eaf.tgz",
       "@tailwindcss/typography>postcss-selector-parser": "^7.1.6"
     }
   },

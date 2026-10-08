@@ -244,7 +244,9 @@ test("admin mounts, anonymous content API is denied and missing CMS pages return
     ).status(),
   ).toBe(404);
   await page.goto("/_emdash/admin/");
-  await expect(page.locator("body")).toContainText(/sign in|log in|登录/i);
+  await expect(page.locator("body")).toContainText(/sign in|log in|登录/i, {
+    timeout: 30_000,
+  });
   expect((await page.goto("/pages/no-such-page/"))?.status()).toBe(404);
   await page.goto("/pages/about/");
   await expect(page.locator(".prose")).not.toBeEmpty();

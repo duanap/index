@@ -15,6 +15,8 @@ const environment = loadEnv(
   process.cwd(),
   "",
 );
+/** @param {string} file */
+const projectPath = (file) => resolve(file).replaceAll("\\", "/");
 const { SITE_URL = "https://duanap.cn" } = loadEnv(
   process.env.NODE_ENV ?? "production",
   process.cwd(),
@@ -43,7 +45,7 @@ export default defineConfig({
   site: site.href,
   output: "server",
   adapter: node({ mode: "standalone" }),
-  session: { driver: { entrypoint: resolve("src/server/session.ts") } },
+  session: { driver: { entrypoint: projectPath("src/server/session.ts") } },
   security: {
     allowedDomains: [
       { hostname: site.hostname, protocol: site.protocol.slice(0, -1) },
@@ -59,15 +61,15 @@ export default defineConfig({
     emdash({
       database: {
         ...sqlite({ url: "file:./data/emdash.db" }),
-        entrypoint: resolve("src/server/database.ts"),
+        entrypoint: projectPath("src/server/database.ts"),
       },
-      storage: { entrypoint: resolve("src/server/storage.ts"), config: {} },
+      storage: { entrypoint: projectPath("src/server/storage.ts"), config: {} },
       siteUrl: site.origin,
       plugins: [
         {
           id: "kanade-webp",
           version: "1.0.0",
-          entrypoint: resolve("src/server/media-plugin.ts"),
+          entrypoint: projectPath("src/server/media-plugin.ts"),
         },
       ],
       maxUploadSize: 10 * 1024 * 1024,
@@ -77,6 +79,10 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+    resolve: {
+      alias: { "@phosphor-icons/react": projectPath("vendor/admin-icons.tsx") },
+    },
+    ssr: { noExternal: ["lucide-react"] },
     server: { allowedHosts: [site.hostname] },
   },
 });

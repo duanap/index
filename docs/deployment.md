@@ -1,6 +1,6 @@
 # duanap.cn 部署与恢复
 
-适用于阿里云轻量服务器 2C4G、Ubuntu 24.04、宝塔 12.0、EdgeOne 免费版。单个 Node 实例，SQLite 和图片存本地磁盘。当前开发环境没有连接你的服务器或 DNS 控制台，下面是需要在服务器执行的步骤。
+适用于阿里云轻量服务器 2C4G、Ubuntu 24.04、宝塔 12.0、EdgeOne 免费版。单个 Node 实例，SQLite 和图片存本地磁盘。2026-10-08 已完成生产部署；实际服务器使用宝塔 13.1.0，端口与 Node 路径按现有环境调整，见 [部署实录与回滚命令](deployment-2026-10-08.md)。以下保留通用安装步骤。
 
 ## 目录与工具
 
@@ -42,6 +42,8 @@ KANADE_DATA_DIR=/www/kanade-data/duanap.cn
 
 ```bash
 pnpm run setup
+# 首次干净检出需要生成未跟踪的 CMS 集合类型（现有 seed 模型）。
+node --input-type=module -e 'import {writeFile} from "node:fs/promises"; import {generateProjectEnvTypes} from "./node_modules/emdash/dist/schema/project-env-types.mjs"; await writeFile("emdash-env.d.ts", await generateProjectEnvTypes(process.cwd()));'
 # 完整复制生成密钥后的 .env；此文件只允许服务用户读取。
 install -m 600 .env /www/kanade-data/duanap.cn/site.env
 NODE_OPTIONS=--max-old-space-size=2048 pnpm build

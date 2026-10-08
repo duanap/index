@@ -1,0 +1,21 @@
+{
+  "repository": "https://github.com/duanap/emdash.git",
+  "commit": "bb448eaf26e76a6d6ff55042f9031222dd010239",
+  "patches": [
+    "preserve-upload-originals"
+  ],
+  "packages": [
+    {
+      "name": "emdash",
+      "version": "1.2.0",
+      "file": "emdash-1.2.0-duanap-bb448eaf.tgz",
+      "sha256": "f01aff4273efbcd5a520e3513d5c58a729e1bc1545bad1a7f74061465e961855"
+    },
+    {
+      "name": "@emdash-cms/admin",
+      "version": "1.2.0",
+      "file": "emdash-cms-admin-1.2.0-duanap-bb448eaf.tgz",
+      "sha256": "a5746ed6a32bbc25c6ed75f2d46369af994a8ece38f074f74f50cd459eebc352"
+    }
+  ]
+}
