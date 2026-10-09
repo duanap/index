@@ -9,6 +9,7 @@ import settings from "./src/site.config.json" with { type: "json" };
 import vue from "@astrojs/vue";
 import tailwindcss from "@tailwindcss/vite";
 import { loadEnv } from "vite";
+import { duanapMembersPlugin } from "./src/plugins/members/index.ts";
 
 const environment = loadEnv(
   process.env.NODE_ENV ?? "production",
@@ -66,6 +67,7 @@ export default defineConfig({
       storage: { entrypoint: projectPath("src/server/storage.ts"), config: {} },
       siteUrl: site.origin,
       plugins: [
+        duanapMembersPlugin(projectPath("src/plugins/members/index.ts")),
         {
           id: "kanade-webp",
           version: "1.0.0",

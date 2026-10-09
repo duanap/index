@@ -2,7 +2,13 @@ import { defineConfig, devices } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./tests",
-  testMatch: ["cms.spec.ts", "fork-admin.spec.ts", "features.spec.ts"],
+  testMatch: [
+    "cms.spec.ts",
+    "fork-admin.spec.ts",
+    "features.spec.ts",
+    "member-auth.spec.ts",
+    "member-profile.spec.ts",
+  ],
   workers: 1,
   timeout: 60_000,
   use: {

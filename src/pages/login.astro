@@ -1,0 +1,49 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { t } from "../i18n";
+import { qqReturnTarget } from "../plugins/members/qq-navigation";
+import { getMemberFromRequest } from "../lib/members";
+const returnTo = qqReturnTarget(
+  Astro.url.searchParams.get("returnTo") || "/member/",
+  Astro.url,
+);
+if (await getMemberFromRequest(Astro.request)) return Astro.redirect(returnTo);
+const error = Astro.url.searchParams.get("error");
+---
+
+<BaseLayout title={t("member.login")} heroTitle={t("member.login")} noindex>
+  <section class="shell member-login panel">
+    <h2>{t("member.login")}</h2>
+    <p>{t("member.loginHint")}</p>
+    {error && (
+      <p role="alert">
+        {t(
+          error === "not_configured"
+            ? "member.notConfigured"
+            : "member.loginFailed",
+        )}
+      </p>
+    )}
+    <a
+      class="member-qq"
+      href={`/_emdash/api/plugins/duanap-members/auth/qq/start?returnTo=${encodeURIComponent(returnTo)}`}
+    >
+      {t("member.qq")}
+    </a>
+  </section>
+</BaseLayout>
+<style>
+  .member-login {
+    max-width: 640px;
+    margin: 28px auto;
+    padding: 28px;
+  }
+  .member-qq {
+    display: inline-block;
+    background: var(--accent-soft);
+    color: var(--accent);
+    padding: 12px 24px;
+    border-radius: 12px;
+    margin-top: 16px;
+  }
+</style>

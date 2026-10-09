@@ -33,6 +33,10 @@ if (seed.status !== 0) {
   await rm(root, { recursive: true, force: true });
   process.exit(seed.status || 1);
 }
+if (!production) {
+  const { seedMembers } = await import("../tests/helpers/seed-members.mjs");
+  await seedMembers(root);
+}
 const child = spawn(
   process.execPath,
   production

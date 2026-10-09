@@ -1,0 +1,11 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import MemberPanel from "../components/members/MemberPanel.vue";
+import { t } from "../i18n";
+---
+
+<BaseLayout title={t("member.center")} heroTitle={t("member.center")} noindex>
+  <div class="shell">
+    <MemberPanel client:load />
+  </div>
+</BaseLayout>

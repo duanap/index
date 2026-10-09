@@ -64,6 +64,12 @@ onUnmounted(() => {
         </a>
       </nav>
       <div class="nav-actions">
+        <a
+          href="/member/"
+          :aria-label="t('member.center')"
+          :title="t('member.center')"
+          ><span class="icon-[lucide--user-round]" aria-hidden="true"></span
+        ></a>
         <button
           @click="openSearch"
           :aria-label="t('nav.search')"
