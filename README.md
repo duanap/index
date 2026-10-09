@@ -1,6 +1,6 @@
 # Kanade + EmDash
 
-保留 Kanade 界面，用 EmDash 管理文章、页面和图片。发布后前台、RSS、站点地图立即更新，无需重建。默认中文，域名 `https://duanap.cn`。
+沿用 Kanade 布局，配色改为米杏、琥珀和陶土暖色（深色模式为暖棕）。用 EmDash 管理文章、页面和图片。发布后前台、RSS、站点地图立即更新，无需重建。默认中文，域名 `https://duanap.cn`。
 
 2026-10-09 接入：EmDash core/admin 使用 duanap/emdash 固定提交 `bb448eaf26e76a6d6ff55042f9031222dd010239` 的同源本地包，见 [来源与补丁记录](vendor/manifest.json)。
 
@@ -28,11 +28,11 @@ pnpm dev
 
 静态 JPEG/PNG 上传后自动生成 WebP，前台正文和上传封面优先使用。默认质量 82、最长边 2560，修正方向、保留透明度及原图。GIF、动画图片、SVG、已有 WebP 保留原格式。限制 10 MiB 和 4000 万像素，转换失败保留原图并记日志。替换、删除和重启检查衍生图有效性。通过 `KANADE_WEBP_QUALITY` 和 `KANADE_IMAGE_MAX_EDGE` 调整设置。
 
-主题、作者、导航和语言在 [src/site.config.json](src/site.config.json)，修改后重建。默认只展示一种语言。友链改为 CMS `friends` 集合，生活/作品/归档入口分别为 `/life/`、`/projects/`、`/archives/`。
+配色在 [src/styles/global.css](src/styles/global.css)；作者、导航和语言在 [src/site.config.json](src/site.config.json)，修改后重建。默认只展示一种语言。友链改为 CMS `friends` 集合，生活/作品/归档入口分别为 `/life/`、`/projects/`、`/archives/`。
 
 会员入口 `/login/`、`/member/`，QQ 参数在后台的 duanap-members 插件设置中维护，回调为 `https://duanap.cn/oauth/qq/callback`，Secret 加密保存。会员与 CMS 管理员身份分开。QQ 登录只返回本站；登录态、资料、收藏和本人评论由服务端会话隔离。真实 QQ 授权需要有效应用与回调配置。
 
-文章、生活、作品支持点赞、收藏和原生评论。留言墙的新留言进入 CMS 审核，站主可在后台新增、编辑、审核和管理留言；审核结果即时可见。本机旧留言保留在本机，不自动上传，删除按钮只作用于本机历史。
+文章、生活、作品支持点赞、收藏和原生评论。留言墙的新留言进入 CMS 审核，站主可在后台新增、编辑、审核和管理留言；审核结果即时可见。公开留言每页 50 条，可加载更早的记录，关闭 JavaScript 也可通过页面链接翻页。本机旧留言保留在本机，不自动上传，删除按钮只作用于本机历史。
 
 后台轮播与备案页脚设置即时生效，空轮播保留原欢迎区域。轮播最多 8 张，支持手机高度、键盘/触摸及焦点、悬停、后台页面和减少动态效果时暂停。地图管理使用本项目真实动态索引，私有页面和 noindex 内容不进入地图。
 

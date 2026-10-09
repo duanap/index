@@ -80,13 +80,47 @@ export async function planFeatureMigration({ database }) {
           `Incompatible collection ${collection.slug}: physical table is missing`,
         );
     }
-    for (const taxonomy of seed.taxonomies)
-      if (
-        !db
-          .prepare("SELECT id FROM _emdash_taxonomy_defs WHERE name=?")
-          .get(taxonomy.name)
+    const hasTaxonomyGroups = !!db
+      .prepare(
+        "SELECT name FROM sqlite_master WHERE type='table' AND name='_emdash_taxonomy_def_groups'",
       )
+      .get();
+    for (const taxonomy of seed.taxonomies) {
+      const definitions = db
+        .prepare("SELECT * FROM _emdash_taxonomy_defs WHERE name=?")
+        .all(taxonomy.name);
+      if (!definitions.length) {
         plan.taxonomies.push(taxonomy.name);
+        continue;
+      }
+      for (const definition of definitions) {
+        // In 1.2 the shared group owns structure; localized definitions retain legacy columns.
+        const existing =
+          (hasTaxonomyGroups && definition.translation_group
+            ? db
+                .prepare("SELECT * FROM _emdash_taxonomy_def_groups WHERE id=?")
+                .get(definition.translation_group)
+            : undefined) || definition;
+        let collections;
+        try {
+          collections = JSON.parse(existing.collections || "[]");
+        } catch {
+          throw Error(
+            `Incompatible taxonomy ${taxonomy.name}: invalid collections`,
+          );
+        }
+        if (
+          Boolean(existing.hierarchical) !== Boolean(taxonomy.hierarchical) ||
+          !Array.isArray(collections) ||
+          collections.some((value) => typeof value !== "string") ||
+          JSON.stringify([...new Set(collections)].sort()) !==
+            JSON.stringify([...taxonomy.collections].sort())
+        )
+          throw Error(
+            `Incompatible taxonomy ${taxonomy.name}: expected hierarchy=${Boolean(taxonomy.hierarchical)} and collections=${taxonomy.collections.join(",")}`,
+          );
+      }
+    }
     for (const name of ["wall", "friends"]) {
       const exists = db
         .prepare("SELECT name FROM sqlite_master WHERE type='table' AND name=?")

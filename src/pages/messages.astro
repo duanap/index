@@ -3,8 +3,21 @@ import { t } from "../i18n";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Guestbook from "../components/Guestbook.vue";
 import { resolveMessageBoard, getBoardMessages } from "../lib/message-board";
+import { MessageCursorError } from "../lib/message-query";
+import type { MessagePage } from "../lib/message-types";
 const board = await resolveMessageBoard(Astro.locals);
-const messages = board ? await getBoardMessages(board.id) : [];
+let messages: MessagePage = { items: [] };
+try {
+  if (board)
+    messages = await getBoardMessages(
+      board.id,
+      Astro.url.searchParams.get("cursor") || undefined,
+    );
+} catch (error) {
+  if (error instanceof MessageCursorError)
+    return new Response("Invalid message cursor", { status: 400 });
+  throw error;
+}
 ---
 
 <BaseLayout
@@ -14,7 +27,22 @@ const messages = board ? await getBoardMessages(board.id) : [];
   heroSubtitle={t("guestbook.heroSubtitle")}
 >
   <div class="shell guestbook-shell">
-    <Guestbook boardId={board?.id} initialMessages={messages} client:load />
+    <Guestbook
+      boardId={board?.id}
+      initialMessages={messages.items}
+      initialCursor={messages.nextCursor}
+      client:load
+    />
+    <noscript>
+      {messages.nextCursor && (
+        <a
+          class="btn secondary"
+          href={`/messages/?cursor=${encodeURIComponent(messages.nextCursor)}`}
+        >
+          {t("guestbook.more")}
+        </a>
+      )}
+    </noscript>
   </div>
 </BaseLayout>
 <style>

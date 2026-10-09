@@ -46,31 +46,67 @@ export const onRequest = defineMiddleware(async (context, next) => {
         context.request.headers.get("origin") !== context.url.origin
       )
         return new Response(null, { status: 403 });
+      let input: unknown;
       try {
-        const input: unknown = await context.request.clone().json();
-        if (input && typeof input === "object" && !Array.isArray(input)) {
-          const prepared = await prepareKanadeComment(
-            context.request,
-            collection!,
-            id,
-            input as Record<string, unknown>,
-          );
-          context.locals.kanadeCommentPrepared = true;
-          const headers = new Headers(context.request.headers);
-          headers.delete("content-length");
-          try {
-            return await context.rewrite(
-              new Request(context.request, {
-                headers,
-                body: JSON.stringify(prepared),
-              }),
-            );
-          } finally {
-            await discardKanadeComment(prepared);
-          }
-        }
+        input = await context.request.clone().json();
       } catch {
-        /* Core parsing reports invalid JSON without accepting a comment. */
+        return Response.json(
+          {
+            success: false,
+            error: {
+              code: "INVALID_COMMENT_JSON",
+              message: "Invalid comment JSON",
+            },
+          },
+          { status: 400, headers: { "Cache-Control": "no-store" } },
+        );
+      }
+      if (!input || typeof input !== "object" || Array.isArray(input))
+        return Response.json(
+          {
+            success: false,
+            error: {
+              code: "INVALID_COMMENT_JSON",
+              message: "Invalid comment object",
+            },
+          },
+          { status: 400 },
+        );
+      let prepared: Record<string, unknown>;
+      try {
+        prepared = await prepareKanadeComment(
+          context.request,
+          collection!,
+          id,
+          input as Record<string, unknown>,
+        );
+      } catch {
+        return Response.json(
+          {
+            success: false,
+            error: {
+              code: "COMMENT_PREPARATION_FAILED",
+              message: "Unable to prepare comment",
+            },
+          },
+          { status: 503, headers: { "Cache-Control": "no-store" } },
+        );
+      }
+      context.locals.kanadeCommentPrepared = true;
+      const headers = new Headers(context.request.headers);
+      headers.delete("content-length");
+      try {
+        return await context.rewrite(
+          new Request(context.request, {
+            headers,
+            body: JSON.stringify(prepared),
+          }),
+        );
+      } finally {
+        // The core may already have committed. Cleanup cannot restart submission.
+        await discardKanadeComment(prepared).catch(() =>
+          console.warn("[kanade-comments] Temporary ticket cleanup failed"),
+        );
       }
     }
   }

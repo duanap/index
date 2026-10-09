@@ -298,5 +298,6 @@
   "carousel.next": "次のスライド",
   "carousel.slide": "スライド {count}",
   "carousel.play": "再生",
-  "carousel.pause": "一時停止"
+  "carousel.pause": "一時停止",
+  "guestbook.more": "以前のメッセージを表示"
 }

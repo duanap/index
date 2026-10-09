@@ -139,3 +139,5 @@ node --env-file=/www/kanade-data/duanap.cn/site.env scripts/migrate-fork-feature
 QQ 回调设置为本站 /oauth/qq/callback，生产 Origin 与 SITE_URL/EMDASH_SITE_URL 一致。Secret 由插件后台写入加密设置，保留原 EMDASH_ENCRYPTION_KEY；管理员 passkey 和会员 QQ 是两套身份。真实 QQ 登录、HTTPS Cookie 和站主 passkey 仍需有效配置及本人验收。
 
 回滚优先停新服务并切回原代码链接，保留新增数据现场。若需要恢复数据，先保存升级后的完整目录，然后按本文“恢复”步骤，用匹配版本的数据库/媒体/site.env 整体恢复；覆盖生产库需另获明确确认。不要混用新旧 WAL 文件、密钥或管理员 Cookie。没有异常时不删除恢复点、原图或本机历史留言。
+
+公开留言分页入口 /api/messages 和 /messages/?cursor=... 也应遵循 no-store，发布时确认 EdgeOne 不强制缓存这些响应。它们只返回当前公开语言、已发布容器的已审核留言，不返回邮箱等私有字段。迁移现在会在写入前拒绝与 life_tag 同名但层级或集合关联不兼容的结构；先人工核对冲突，不能靠重放 seed 覆盖。

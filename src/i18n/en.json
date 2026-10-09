@@ -298,5 +298,6 @@
   "carousel.next": "Next slide",
   "carousel.slide": "Slide {count}",
   "carousel.play": "Play carousel",
-  "carousel.pause": "Pause carousel"
+  "carousel.pause": "Pause carousel",
+  "guestbook.more": "Load earlier notes"
 }

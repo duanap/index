@@ -53,3 +53,23 @@ test("comment ownership is attested by a session, not a forged derived identity 
     await f.cleanup();
   }
 });
+
+test("anonymous comment tickets do not bypass the core email validator", async () => {
+  const plugin = createPlugin();
+  const f = await membersFixture(plugin);
+  try {
+    await plugin.hooks!["plugin:activate"]!.handler({} as never, f.ctx);
+    const { prepareKanadeComment } =
+      await import("../../src/plugins/members/index");
+    const prepared = await prepareKanadeComment(
+      new Request("https://duanap.cn/comments"),
+      "wall",
+      "board",
+      { authorName: "访客", authorEmail: "", body: "邮箱无效" },
+    );
+    assert.equal(prepared.authorEmail, "");
+    assert.equal((await f.ctx.kv.list("comment:ticket:")).length, 0);
+  } finally {
+    await f.cleanup();
+  }
+});

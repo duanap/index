@@ -6,3 +6,7 @@ export interface PaperMessage {
   color: "butter" | "rose" | "mint" | "sky" | "lilac";
   local?: boolean;
 }
+export interface MessagePage {
+  items: PaperMessage[];
+  nextCursor?: string;
+}

@@ -26,6 +26,7 @@
  */
 
 import { definePlugin, pluginResponse } from "emdash";
+import { createCommentBody } from "emdash/api/schemas";
 import type { PluginDescriptor, PluginContext, ResolvedPlugin } from "emdash";
 import { language } from "../../i18n/index.js";
 
@@ -1480,13 +1481,18 @@ export async function prepareKanadeComment(
     : undefined;
   if (!member && input.authorEmail.toLowerCase().endsWith("@members.duanap.cn"))
     return input;
+  const authorName = member?.displayName || input.authorName.trim();
+  const authorEmail = memberRef || input.authorEmail.trim();
+  const candidate = { ...input, authorName, authorEmail };
+  // A temporary valid ticket address must not bypass the core's input validation.
+  if (!createCommentBody.safeParse(candidate).success) return candidate;
   const token = randomToken(20);
   const ticket: CommentTicket = {
     collection,
     contentId,
     body: input.body,
-    name: member?.displayName || input.authorName.trim(),
-    email: memberRef || input.authorEmail.trim(),
+    name: authorName,
+    email: authorEmail,
     memberRef,
     color: ["butter", "rose", "mint", "sky", "lilac"].includes(
       String(input.color),

@@ -336,3 +336,44 @@ test("feature migration refuses incompatible existing fields before changing dat
     await rm(site.root, { recursive: true, force: true });
   }
 });
+
+test("migration rejects incompatible existing life tag hierarchy or collection associations without writes", async () => {
+  const { planFeatureMigration, applyFeatureMigration } =
+    await import("../../scripts/migrate-fork-features.mjs");
+  for (const hierarchical of [true, false]) {
+    const site = await originalSite();
+    try {
+      const db = new Kysely({
+        dialect: createDialect({ url: `file:${site.database}` }),
+      });
+      await applySeed(
+        db,
+        {
+          version: "1",
+          taxonomies: [
+            {
+              name: "life_tag",
+              label: "用户的同名标签",
+              hierarchical,
+              collections: ["posts"],
+            },
+          ],
+        },
+        { onConflict: "skip", structure: { mode: "upsert" } },
+      );
+      await db.destroy();
+      const before = await readFile(site.database);
+      await assert.rejects(
+        () => planFeatureMigration(site),
+        /Incompatible taxonomy life_tag/,
+      );
+      await assert.rejects(
+        () => applyFeatureMigration(site),
+        /Incompatible taxonomy life_tag/,
+      );
+      assert.deepEqual(await readFile(site.database), before);
+    } finally {
+      await rm(site.root, { recursive: true, force: true });
+    }
+  }
+});

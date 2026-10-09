@@ -298,5 +298,6 @@
   "carousel.next": "下一张",
   "carousel.slide": "第 {count} 张",
   "carousel.play": "播放轮播",
-  "carousel.pause": "暂停轮播"
+  "carousel.pause": "暂停轮播",
+  "guestbook.more": "加载更早的留言"
 }

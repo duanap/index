@@ -3,11 +3,12 @@ import { t, locale } from "../i18n";
 import { personalInfo } from "../config";
 import { ref, computed, onMounted } from "vue";
 
-import type { PaperMessage } from "../lib/message-types";
+import type { PaperMessage, MessagePage } from "../lib/message-types";
 import { memberRequest } from "../lib/member-client";
 const props = defineProps<{
   boardId?: string;
   initialMessages: PaperMessage[];
+  initialCursor?: string;
 }>();
 const email = ref("");
 const loggedIn = ref(false);
@@ -35,8 +36,12 @@ const name = ref("");
 const content = ref("");
 const selectedColor = ref<PaperColor>("butter");
 const localMessages = ref<Message[]>([]);
+const serverMessages = ref([...props.initialMessages]);
+const messageCursor = ref(props.initialCursor);
+const messageLoading = ref(false);
+const boardError = ref("");
 const messages = computed(() => [
-  ...props.initialMessages,
+  ...serverMessages.value,
   ...localMessages.value,
 ]);
 const feedback = ref("");
@@ -172,6 +177,28 @@ async function submit() {
     error.value = t("member.failed");
   } finally {
     busy.value = false;
+  }
+}
+async function loadMoreMessages() {
+  if (!messageCursor.value || !props.boardId || messageLoading.value) return;
+  messageLoading.value = true;
+  boardError.value = "";
+  try {
+    const response = await fetch(
+      `/api/messages?boardId=${encodeURIComponent(props.boardId)}&cursor=${encodeURIComponent(messageCursor.value)}`,
+      { cache: "no-store" },
+    );
+    if (!response.ok) throw Error("messages_unavailable");
+    const page: MessagePage = await response.json();
+    const seen = new Set(serverMessages.value.map((message) => message.id));
+    serverMessages.value.push(
+      ...page.items.filter((message) => !seen.has(message.id)),
+    );
+    messageCursor.value = page.nextCursor;
+  } catch {
+    boardError.value = t("member.failed");
+  } finally {
+    messageLoading.value = false;
   }
 }
 function remove(id: string) {
@@ -355,7 +382,7 @@ function tilt(id: string) {
             >{{ newestFirst ? t("guestbook.newest") : t("guestbook.oldest") }}
           </button>
         </div>
-        <div class="wall-canvas" :aria-busy="!ready">
+        <div class="wall-canvas" :aria-busy="!ready || messageLoading">
           <div class="note-grid">
             <article
               v-for="message in orderedMessages"
@@ -480,6 +507,15 @@ function tilt(id: string) {
             <span></span>
           </div>
         </div>
+        <button
+          v-if="messageCursor"
+          class="btn secondary load-more-notes"
+          :disabled="messageLoading"
+          @click="loadMoreMessages"
+        >
+          {{ t("guestbook.more") }}
+        </button>
+        <p v-if="boardError" role="alert">{{ boardError }}</p>
       </section>
     </div>
     <p class="wall-footnote">

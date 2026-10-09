@@ -37,6 +37,10 @@ test("server notes stay pending, approvals and edits render immediately after bo
     (await request.get(`/_emdash/api/comments/wall/${other.id}`)).status(),
   ).toBe(404);
   await page.goto("/messages/");
+  await expect(page.locator(".guestbook")).toHaveAttribute(
+    "data-ready",
+    "true",
+  );
   await page.getByLabel("怎么称呼你").fill("服务器访客");
   await page.getByLabel("邮箱（不公开）").fill("guest@example.test");
   await page
@@ -126,4 +130,99 @@ test("server notes stay pending, approvals and edits render immediately after bo
   expect((await bulk.json()).data).toMatchObject({ affected: 1 });
   await page.reload();
   await expect(page.locator(".message")).toHaveCount(0);
+});
+
+test("approved wall notes page beyond 100 without exposing pending notes or another-language container", async ({
+  page,
+  request,
+  browser,
+}) => {
+  const token = (
+    await (await request.get("/_emdash/api/setup/dev-bypass?token=1")).json()
+  ).data.token;
+  const headers = { Authorization: `Bearer ${token}`, "X-EmDash-Request": "1" };
+  const boards = (
+    await (
+      await request.get("/_emdash/api/content/wall?limit=100", { headers })
+    ).json()
+  ).data.items;
+  const board = boards
+    .filter(
+      (entry: { locale: string; status: string }) =>
+        entry.locale === "zh-CN" && entry.status === "published",
+    )
+    .sort(
+      (
+        a: { createdAt: string; id: string },
+        b: { createdAt: string; id: string },
+      ) => a.createdAt.localeCompare(b.createdAt) || a.id.localeCompare(b.id),
+    )[0];
+  const other = boards.find(
+    (entry: { locale: string }) => entry.locale === "en",
+  );
+  for (let index = 0; index < 105; index++) {
+    const response = await request.post("/_emdash/api/admin/comments", {
+      headers,
+      data: {
+        collection: "wall",
+        contentId: board.id,
+        authorName: "公开长列表",
+        authorEmail: "private@example.test",
+        body: `公开留言 ${index}`,
+        status: "approved",
+      },
+    });
+    expect(response.ok(), await response.text()).toBe(true);
+  }
+  await request.post("/_emdash/api/admin/comments", {
+    headers,
+    data: {
+      collection: "wall",
+      contentId: board.id,
+      authorName: "待审核",
+      authorEmail: "hidden@example.test",
+      body: "不要公开的内容",
+      status: "pending",
+    },
+  });
+  await page.goto("/messages/");
+  await expect(page.locator(".message")).toHaveCount(50);
+  await page.getByRole("button", { name: "加载更早的留言" }).click();
+  await expect(page.locator(".message")).toHaveCount(100);
+  await page.getByRole("button", { name: "加载更早的留言" }).click();
+  await expect(page.locator(".message")).toHaveCount(105);
+  await expect(
+    page.getByRole("button", { name: "加载更早的留言" }),
+  ).toHaveCount(0);
+  await expect(page.locator(".note-board")).toContainText("公开留言 0");
+  await expect(page.locator(".note-board")).not.toContainText("不要公开的内容");
+  const result = await request.get(`/api/messages?boardId=${board.id}`);
+  expect(result.status()).toBe(200);
+  const data = await result.json();
+  expect(data.items).toHaveLength(50);
+  expect(data.nextCursor).toBeTruthy();
+  expect(JSON.stringify(data)).not.toContain("private@example.test");
+  expect(
+    (await request.get(`/api/messages?boardId=${other.id}`)).status(),
+  ).toBe(409);
+  expect(
+    (await request.get("/api/messages?cursor=not-a-cursor")).status(),
+  ).toBe(400);
+  const plain = await browser.newContext({
+    javaScriptEnabled: false,
+    baseURL: "http://127.0.0.1:4174",
+  });
+  try {
+    const reader = await plain.newPage();
+    await reader.goto("/messages/");
+    await expect(reader.locator(".message")).toHaveCount(50);
+    await reader.getByRole("link", { name: "加载更早的留言" }).click();
+    await expect(reader).toHaveURL(/cursor=/);
+    await expect(reader.locator(".message")).toHaveCount(50);
+    await expect(reader.locator(".note-board")).not.toContainText(
+      "不要公开的内容",
+    );
+  } finally {
+    await plain.close();
+  }
 });
