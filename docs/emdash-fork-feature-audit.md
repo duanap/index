@@ -66,3 +66,13 @@
 - `packages/admin/src/components/comments/MessageDialog.tsx`、`CommentInbox.tsx`
 - `packages/core/src/plugins/route-wire.ts`、`packages/admin/src/lib/api/media.ts`、`packages/admin/src/lib/webp-upload.ts`
 - `.changeset/admin-navigation-and-chinese.md`、`message-board-tags-and-bulk.md`、`footer-links-settings.md`、`trusted-plugin-route-cookies.md`
+
+## 2026-10-09 接入结果
+
+上述只读核对是接入前状态。实现基于固定提交 bb448eaf，core/admin 同源 tarball 已置于 vendor，并通过哈希及安装来源核验。会员插件由该提交的 demos/blog/member-plugin/index.ts 和 qq-navigation.ts 迁入 src/plugins/members，按本站独立数据库收紧跳转，修复 OAuth state 并发消费和评论归属校验。
+
+生活/作品/归档、CMS 友链、会员资料和私有分页、点赞收藏/评论点赞、审核留言墙、轮播与备案页脚、动态地图管理均已接入 Kanade。没有导入 V:/EmdashBlog 或旧博客的数据。原图与服务端 WebP 流程保持不变。
+
+验证在独立本机 Linux 数据目录进行：冻结离线安装、固定包来源校验、35 个单元测试、零类型诊断、生产构建、32 个桌面/手机测试与 13 个 CMS/会员/设置测试通过。额外语言构建与最终审查结论将在实施记录中保存。
+
+QQ-provider 单元测试使用固定的模拟 QQ 响应；真实浏览器用独立 SQLite 会话验证原生插件 Cookie、CSRF、登出、资料保存、收藏/本人评论分页和评论归属。这些不能代替有效 QQ 应用的真实授权，也没有创建生产测试管理员。

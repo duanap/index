@@ -21,7 +21,7 @@ sudo install -d -o kanade -g kanade -m 750 /www/wwwroot/duanap.cn /www/kanade-da
 sudo install -d -m 700 /www/kanade-backups
 ```
 
-把仓库复制到代码目录，确保 `kanade` 能安装和构建。之后安装和构建命令以该用户执行，可用 `sudo -u kanade`；宝塔 Node 需要对应 PATH。数据库、环境文件和备份不得通过 Nginx 静态开放。
+代码和冻结依赖应在隔离 Linux 构建机准备，并把完整运行包复制到服务器。2C4G 生产机只运行服务，不安装依赖或执行构建。以下依赖安装、setup 与构建命令在构建机执行；服务器数据初始化与升级另按明确备份范围处理。数据库、环境文件和备份不得通过 Nginx 静态开放。
 
 ## 初始化、构建和启动
 
@@ -116,3 +116,26 @@ sudo systemctl start kanade
 ## 故障检查
 
 502：检查 service 日志、Node 路径和 4321 监听。权限错误：检查数据归属与 site.env 权限。数据库锁：关闭重复服务实例。登录/origin 错误：核对 HTTPS、Host、SITE_URL 和 EMDASH_SITE_URL。发布后旧内容：检查宝塔与 EdgeOne 强制缓存。WebP 回退：查看转换日志、体积、像素与图片格式。
+
+## 2026-10-09 Fork 功能升级
+
+本次接入仍为本地交付，没有执行生产库迁移或发布。固定 core/admin 来源和专用原图补丁记录在 vendor/manifest.json；服务器不能临时改装回官方 core 或 admin 包。
+
+升级前检查当前服务、运行目录、Git diff 与当前版本，保存 Nginx、服务配置和原 site.env。当前已部署版本及回滚路径记录在 [2026-10-08 部署记录](deployment-2026-10-08.md)，实际状态发布前重新核对。
+
+1. 在 Linux 构建机冻结安装、核验包来源、生成类型并通过测试/构建，准备含 Linux 依赖的运行包。
+2. 针对生产 emdash.db 运行 migrate:fork dry-run，核对只增加缺失集合/字段/初始记录；发现不兼容结构即停止。
+3. 停止 kanade.service，保留现有数据目录和密钥。用已有私有备份工具保存 SQLite、uploads、webp、site.env。使用新版本迁移工具显式 apply 并指定另一未存在的备份目录：工具先备份再升级，不重放原文章、页面、管理员或站点设置。
+4. 启动新版本的同一个 Node 服务。核验服务状态、回环 RSS/页面、源站 Nginx HTTPS 和 EdgeOne 公网；检查历史文章 ID/数量、媒体原字节、WebP、登录与审核，不仅检查缓存首页 200。
+
+命令示例（具体目录以当前服务配置为准）：
+
+```bash
+node --env-file=/www/kanade-data/duanap.cn/site.env scripts/migrate-fork-features.mjs --dry-run --database /www/kanade-data/duanap.cn/emdash.db
+# 仅在发布步骤已获授权、服务已停且恢复点已确认后执行
+node --env-file=/www/kanade-data/duanap.cn/site.env scripts/migrate-fork-features.mjs --apply --database /www/kanade-data/duanap.cn/emdash.db --key-file /www/kanade-data/duanap.cn/site.env --backup-destination /www/kanade-backups/index-before-fork
+```
+
+QQ 回调设置为本站 /oauth/qq/callback，生产 Origin 与 SITE_URL/EMDASH_SITE_URL 一致。Secret 由插件后台写入加密设置，保留原 EMDASH_ENCRYPTION_KEY；管理员 passkey 和会员 QQ 是两套身份。真实 QQ 登录、HTTPS Cookie 和站主 passkey 仍需有效配置及本人验收。
+
+回滚优先停新服务并切回原代码链接，保留新增数据现场。若需要恢复数据，先保存升级后的完整目录，然后按本文“恢复”步骤，用匹配版本的数据库/媒体/site.env 整体恢复；覆盖生产库需另获明确确认。不要混用新旧 WAL 文件、密钥或管理员 Cookie。没有异常时不删除恢复点、原图或本机历史留言。
