@@ -1,7 +1,17 @@
 <script setup lang="ts">
 import { t, locale } from "../i18n";
 import { personalInfo } from "../config";
-import { ref, computed, onMounted, nextTick } from "vue";
+import { ref, computed, onMounted } from "vue";
+
+import type { PaperMessage } from "../lib/message-types";
+import { memberRequest } from "../lib/member-client";
+const props = defineProps<{
+  boardId?: string;
+  initialMessages: PaperMessage[];
+}>();
+const email = ref("");
+const loggedIn = ref(false);
+const busy = ref(false);
 
 const paperColors = [
   {
@@ -19,18 +29,16 @@ const paperColors = [
   },
 ] as const;
 type PaperColor = (typeof paperColors)[number]["value"];
-type Message = {
-  id: string;
-  name: string;
-  content: string;
-  date: string;
-  color: PaperColor;
-};
+type Message = PaperMessage;
 const storageKey = "kanade:guestbook:v1";
 const name = ref("");
 const content = ref("");
 const selectedColor = ref<PaperColor>("butter");
-const messages = ref<Message[]>([]);
+const localMessages = ref<Message[]>([]);
+const messages = computed(() => [
+  ...props.initialMessages,
+  ...localMessages.value,
+]);
 const feedback = ref("");
 const error = ref("");
 const ready = ref(false);
@@ -81,7 +89,7 @@ onMounted(() => {
   try {
     const raw: unknown = JSON.parse(localStorage.getItem(storageKey) || "[]");
     const seen = new Set<string>();
-    messages.value = Array.isArray(raw)
+    localMessages.value = Array.isArray(raw)
       ? raw
           .map(normalizeMessage)
           .filter((message): message is Message => {
@@ -89,6 +97,7 @@ onMounted(() => {
             seen.add(message.id);
             return true;
           })
+          .map((message) => ({ ...message, local: true }))
           .slice(0, 100)
           .sort((a, b) => Date.parse(b.date) - Date.parse(a.date))
       : [];
@@ -96,11 +105,19 @@ onMounted(() => {
     error.value = t("guestbook.storageUnavailable");
   }
   ready.value = true;
+  memberRequest<{ loggedIn: boolean; member?: { displayName: string } }>(
+    "auth/status",
+  )
+    .then((status) => {
+      loggedIn.value = status.loggedIn;
+      if (status.member) name.value = status.member.displayName;
+    })
+    .catch(() => {});
 });
 function save(next: Message[]) {
   try {
     localStorage.setItem(storageKey, JSON.stringify(next));
-    messages.value = next;
+    localMessages.value = next;
     return true;
   } catch {
     error.value = t("guestbook.saveFailed");
@@ -120,41 +137,46 @@ async function submit() {
     error.value = t("guestbook.limit");
     return;
   }
-  if (messages.value.length >= 100) {
-    error.value = t("guestbook.full");
+  if (
+    !props.boardId ||
+    busy.value ||
+    (!loggedIn.value && !email.value.trim())
+  ) {
+    error.value = t("guestbook.required");
     return;
   }
-  const id =
-    globalThis.crypto?.randomUUID?.() ||
-    `${Date.now()}-${Math.random().toString(36).slice(2)}`;
-  if (
-    save([
+  busy.value = true;
+  try {
+    const response = await fetch(
+      `/_emdash/api/comments/wall/${encodeURIComponent(props.boardId)}`,
       {
-        id,
-        name: author,
-        content: text,
-        date: new Date().toISOString(),
-        color: selectedColor.value,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-EmDash-Request": "1",
+        },
+        body: JSON.stringify({
+          authorName: author,
+          authorEmail: email.value.trim(),
+          body: text,
+          color: selectedColor.value,
+        }),
+        credentials: "same-origin",
       },
-      ...messages.value,
-    ])
-  ) {
-    freshId.value = id;
-    newestFirst.value = true;
+    );
+    const result = await response.json();
+    if (!response.ok || !result.success) throw new Error("submit_failed");
     content.value = "";
-    feedback.value = t("guestbook.saved");
-    await nextTick();
-    document.getElementById(`note-${id}`)?.scrollIntoView({
-      block: "nearest",
-      behavior: matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "instant"
-        : "smooth",
-    });
+    feedback.value = t("guestbook.pending");
+  } catch {
+    error.value = t("member.failed");
+  } finally {
+    busy.value = false;
   }
 }
 function remove(id: string) {
   error.value = "";
-  if (save(messages.value.filter((message) => message.id !== id)))
+  if (save(localMessages.value.filter((message) => message.id !== id)))
     feedback.value = t("guestbook.removed");
 }
 function emoji(value: string) {
@@ -245,6 +267,18 @@ function tilt(id: string) {
               maxlength="24"
               required
             />
+            <label v-if="!loggedIn" class="field-label" for="guest-email"
+              >{{ t("comments.email") }} *</label
+            >
+            <input
+              v-if="!loggedIn"
+              id="guest-email"
+              v-model="email"
+              class="paper-input"
+              type="email"
+              required
+              autocomplete="email"
+            />
             <label class="field-label" for="guest-content"
               >{{ t("guestbook.content") }}<span>*</span></label
             >
@@ -279,7 +313,11 @@ function tilt(id: string) {
             </div>
             <span>{{ t("guestbook.emojiHint") }}</span>
           </div>
-          <button type="submit" class="btn stick-button" :disabled="!ready">
+          <button
+            type="submit"
+            class="btn stick-button"
+            :disabled="!ready || busy || !boardId"
+          >
             <span class="icon-[lucide--pin]" aria-hidden="true"></span
             >{{ t("guestbook.submit")
             }}<span
@@ -292,7 +330,7 @@ function tilt(id: string) {
         </form>
         <div class="local-notice">
           <span class="icon-[lucide--lock-keyhole]" aria-hidden="true"></span>
-          <p>{{ t("guestbook.localNotice") }}</p>
+          <p>{{ t("guestbook.serverNotice") }}</p>
         </div>
       </section>
 
@@ -333,6 +371,7 @@ function tilt(id: string) {
               <button
                 type="button"
                 class="remove-note"
+                v-if="message.local"
                 @click="remove(message.id)"
                 :aria-label="t('guestbook.delete', { name: message.name })"
                 :title="t('guestbook.remove')"
@@ -350,7 +389,10 @@ function tilt(id: string) {
                   <span class="note-avatar" aria-hidden="true">{{
                     Array.from(message.name)[0]
                   }}</span
-                  ><strong>{{ message.name }}</strong>
+                  ><strong>{{ message.name }}</strong
+                  ><small v-if="message.local">{{
+                    t("guestbook.localHistory")
+                  }}</small>
                 </div>
                 <time :datetime="message.date">{{
                   dateLabel(message.date)

@@ -1,0 +1,40 @@
+---
+import { getKanadeSiteSettings, footerLinks } from "../lib/site-settings";
+const links = footerLinks(await getKanadeSiteSettings(Astro.locals));
+---
+
+{links.length > 0 && (
+  <p class="footer-links">
+    {links.map((link) => (
+      <a href={link.url} target="_blank" rel="noopener noreferrer">
+        {link.iconUrl && (
+          <img
+            src={link.iconUrl}
+            alt=""
+            width="16"
+            height="16"
+            loading="lazy"
+          />
+        )}{" "}
+        {link.label}
+      </a>
+    ))}
+  </p>
+)}
+<style>
+  .footer-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 20px;
+    flex-wrap: wrap;
+  }
+  .footer-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .footer-links img {
+    object-fit: contain;
+  }
+</style>

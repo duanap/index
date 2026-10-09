@@ -3,6 +3,8 @@ import type { FeatureEntry } from "../../lib/feature-content";
 import { getHeadings } from "../../lib/cms-posts";
 import Content from "./Content.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import Activity from "../members/Activity.vue";
+import Comments from "../comments/Comments.astro";
 import { t, formatDate } from "../../i18n";
 interface Props {
   entry: FeatureEntry;
@@ -56,6 +58,12 @@ const headings = getHeadings(entry.content);
       <div class="prose" id="article-body">
         <Content value={entry.content} />
       </div>
+      <Activity
+        collection={entry.collection}
+        contentId={entry.id}
+        client:visible
+      />
+      <Comments collection={entry.collection} contentId={entry.id} />
       {entry.collection === "projects" && entry.url && (
         <a
           class="btn primary"

@@ -1,5 +1,7 @@
 ---
 import { t, formatDate } from "../../i18n";
+import Activity from "../../components/members/Activity.vue";
+import Comments from "../../components/comments/Comments.astro";
 import Content from "../../components/content/Content.astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PersonalCard from "../../components/home/PersonalCard.vue";
@@ -95,6 +97,16 @@ const older = posts[index + 1];
         <p>{t("article.thanks")}</p>
       </div>
       <div class="article-tools">
+        {post.databaseId && (
+          <>
+            <Activity
+              collection="posts"
+              contentId={post.databaseId}
+              client:visible
+            />
+            <Comments collection="posts" contentId={post.databaseId} />
+          </>
+        )}
         <div class="article-tags">
           {post.data.tags.map((tag) => (
             <a class="chip" href={`/posts/?tag=${encodeURIComponent(tag)}`}>

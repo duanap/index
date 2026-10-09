@@ -435,6 +435,7 @@ onUnmounted(() => window.removeEventListener("popstate", readUrl));
   font-size: 18px;
 }
 .pagination {
+  flex-wrap: wrap;
   display: flex;
   align-items: center;
   justify-content: center;

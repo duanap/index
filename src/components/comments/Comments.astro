@@ -1,0 +1,95 @@
+---
+import { getComments, getCollectionInfo } from "emdash";
+import { CommentForm } from "emdash/ui/comments";
+import { t, formatDate } from "../../i18n";
+import Activity from "../members/Activity.vue";
+interface Props {
+  collection: string;
+  contentId: string;
+}
+const { collection, contentId } = Astro.props;
+const enabled = (await getCollectionInfo(collection))?.commentsEnabled;
+const { items } = enabled
+  ? await getComments({ collection, contentId, threaded: true })
+  : { items: [] };
+const comments = items.flatMap((item) => [item, ...(item.replies || [])]);
+---
+
+{enabled && (
+  <section class="comments-panel" id="comments">
+    <h2>{t("comments.heading")}</h2>
+    {comments.map((comment) => (
+      <article class="comment" id={`comment-${comment.id}`}>
+        <strong>{comment.authorName}</strong>
+        <time datetime={comment.createdAt}>
+          {formatDate(comment.createdAt)}
+        </time>
+        <p>{comment.body}</p>
+        <Activity collection="comment" contentId={comment.id} client:visible />
+      </article>
+    ))}
+    <CommentForm
+      collection={collection}
+      contentId={contentId}
+      labels={{
+        name: t("guestbook.name"),
+        email: t("comments.email"),
+        comment: t("guestbook.content"),
+        submit: t("comments.submit"),
+        pending: t("guestbook.pending"),
+        published: t("comments.published"),
+        error: t("member.failed"),
+        networkError: t("member.failed"),
+      }}
+    />
+  </section>
+)}
+<script>
+  import { memberRequest } from "../../lib/member-client";
+  memberRequest<{
+    loggedIn: boolean;
+    member?: { displayName: string };
+    commentIdentity?: { email: string };
+  }>("auth/status")
+    .then((status) => {
+      if (!status.loggedIn || !status.member || !status.commentIdentity) return;
+      document
+        .querySelectorAll<HTMLFormElement>("[data-ec-comment-form]")
+        .forEach((form) => {
+          const name = form.querySelector<HTMLInputElement>(
+            'input[name="authorName"]',
+          );
+          const email = form.querySelector<HTMLInputElement>(
+            'input[name="authorEmail"]',
+          );
+          if (name) name.value = status.member!.displayName;
+          if (email) email.value = status.commentIdentity!.email;
+        });
+    })
+    .catch(() => {});
+</script>
+<style>
+  .comments-panel {
+    padding: 24px 0;
+    border-top: 1px solid var(--line);
+  }
+  .comment {
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
+    overflow-wrap: anywhere;
+  }
+  .comment time {
+    margin-left: 16px;
+    color: var(--muted);
+    font-size: 0.85em;
+  }
+  .comment p {
+    white-space: pre-wrap;
+  }
+  .ec-comment-form {
+    --ec-form-bg: var(--card);
+    --ec-form-text: var(--text);
+    --ec-form-border: var(--line);
+    --ec-form-accent: var(--accent);
+  }
+</style>

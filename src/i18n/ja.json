@@ -284,5 +284,19 @@
   "member.moreFavorites": "お気に入りをもっと見る",
   "member.moreComments": "コメントをもっと見る",
   "activity.like": "いいね",
-  "activity.favorite": "お気に入り"
+  "activity.favorite": "お気に入り",
+  "comments.heading": "コメント",
+  "comments.email": "メール（非公開）",
+  "comments.submit": "コメントを投稿",
+  "comments.published": "コメントを公開しました",
+  "guestbook.pending": "投稿しました。承認後に公開されます。",
+  "guestbook.serverNotice": "新しいメッセージはサイトに保存され、承認後に公開されます。メールは非公開です。",
+  "guestbook.localHistory": "この端末の履歴",
+  "carousel.label": "ホームカルーセル",
+  "carousel.role": "カルーセル",
+  "carousel.previous": "前のスライド",
+  "carousel.next": "次のスライド",
+  "carousel.slide": "スライド {count}",
+  "carousel.play": "再生",
+  "carousel.pause": "一時停止"
 }

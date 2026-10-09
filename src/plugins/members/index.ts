@@ -27,6 +27,7 @@
 
 import { definePlugin, pluginResponse } from "emdash";
 import type { PluginDescriptor, PluginContext, ResolvedPlugin } from "emdash";
+import { language } from "../../i18n/index.js";
 
 import { isQqSiteOrigin, qqReturnTarget } from "./qq-navigation.js";
 
@@ -228,11 +229,43 @@ export function createPlugin(
         },
       },
       // 会员用派生身份邮箱评论 → 归到该会员名下（见「我的评论」）
+      "comment:beforeCreate": {
+        handler: async (event, ctx) => {
+          const email = event.comment.authorEmail.toLowerCase();
+          if (!email.endsWith("@members.duanap.cn")) return event;
+          const token = email.match(
+            /^ticket-([a-f0-9]{40})@members\.duanap\.cn$/,
+          )?.[1];
+          if (!token) return false;
+          const key = `comment:ticket:${token}`;
+          const ticket = await ctx.kv.getVersioned<CommentTicket>(key);
+          if (
+            !ticket ||
+            ticket.value.expiresAt <= Date.now() ||
+            ticket.value.collection !== event.comment.collection ||
+            ticket.value.contentId !== event.comment.contentId ||
+            ticket.value.body !== event.comment.body
+          )
+            return false;
+          if (!(await ctx.kv.compareAndDelete(key, ticket.revision)).applied)
+            return false;
+          event.comment.authorName = ticket.value.name;
+          event.comment.authorEmail = ticket.value.email;
+          event.metadata.kanadeColor = ticket.value.color;
+          if (ticket.value.memberRef)
+            event.metadata.kanadeMemberRef = ticket.value.memberRef;
+          return event;
+        },
+      },
       "comment:afterCreate": {
         handler: async (event, ctx) => {
           const authorEmail =
             event.comment?.authorEmail?.trim().toLowerCase() ?? "";
-          if (!MEMBER_IDENTITY_PATTERN.test(authorEmail)) return;
+          if (
+            !MEMBER_IDENTITY_PATTERN.test(authorEmail) ||
+            event.metadata.kanadeMemberRef !== authorEmail
+          )
+            return;
           await ctx.storage.memberComments.put(event.comment.id, {
             memberRef: authorEmail,
             collection: event.comment.collection,
@@ -526,6 +559,11 @@ export function createPlugin(
             const member = await resolveMemberRecord(ctx.storage, ctx.request);
             const items = await Promise.all(
               ids.map(async (id) => {
+                if (
+                  !isActivityTarget(targetType, id) ||
+                  !(await isPublishedTarget(ctx, targetType, id))
+                )
+                  return null;
                 const state = await readActivityState(
                   ctx,
                   targetType,
@@ -539,12 +577,14 @@ export function createPlugin(
                 };
               }),
             );
-            return { ok: true, items };
+            return { ok: true, items: items.filter((item) => item !== null) };
           }
 
           if (!isActivityTarget(targetType, targetId)) {
             return { ok: false, reason: "invalid_target" };
           }
+          if (!(await isPublishedTarget(ctx, targetType, targetId)))
+            return { ok: false, reason: "not_found" };
           const member = await resolveMemberRecord(ctx.storage, ctx.request);
           return {
             ok: true,
@@ -1025,11 +1065,20 @@ async function isPublishedTarget(
   // 评论目标：确认评论还在（评论可能已被删除）
   if (targetType === COMMENT_TARGET_TYPE) {
     if (!ctx.comments) return false;
-    return (await ctx.comments.get(targetId)) !== null;
+    const comment = await ctx.comments.get(targetId);
+    return (
+      !!comment &&
+      comment.status === "approved" &&
+      (await isPublishedTarget(ctx, comment.collection, comment.contentId))
+    );
   }
-  if (!ctx.content) return true;
+  if (
+    !["posts", "life", "projects", "wall"].includes(targetType) ||
+    !ctx.content
+  )
+    return false;
   const item = await ctx.content.get(targetType, targetId);
-  return item?.status === "published";
+  return item?.status === "published" && item.locale === language;
 }
 
 async function readActivityState(
@@ -1258,7 +1307,13 @@ async function readMemberOverview(
       ? await ctx.content.get(favorite.targetType, favorite.targetId)
       : null;
     // 与旧站一致：内容已下线/删除就不展示（但计数仍如实反映会员的操作）
-    if (!item || item.status !== "published" || !item.slug) continue;
+    if (
+      !item ||
+      item.status !== "published" ||
+      item.locale !== language ||
+      !item.slug
+    )
+      continue;
     const title =
       typeof item.data?.title === "string" ? item.data.title : item.slug;
     items.push({
@@ -1392,4 +1447,66 @@ export async function getViewerActivity(
 /** 会员插件是否已激活（ctx 已捕获） */
 export function isMembersPluginActive(): boolean {
   return capturedCtx !== null;
+}
+
+interface CommentTicket {
+  collection: string;
+  contentId: string;
+  body: string;
+  name: string;
+  email: string;
+  memberRef?: string;
+  color: string;
+  expiresAt: number;
+}
+
+/** Bind ownership and paper color to this verified request before the core comment pipeline. */
+export async function prepareKanadeComment(
+  request: Request,
+  collection: string,
+  contentId: string,
+  input: Record<string, unknown>,
+): Promise<Record<string, unknown>> {
+  if (
+    !capturedCtx ||
+    typeof input.body !== "string" ||
+    typeof input.authorEmail !== "string" ||
+    typeof input.authorName !== "string"
+  )
+    return input;
+  const member = await resolveMemberRecord(capturedCtx.storage, request);
+  const memberRef = member
+    ? await memberIdentityEmail(member.qqOpenid)
+    : undefined;
+  if (!member && input.authorEmail.toLowerCase().endsWith("@members.duanap.cn"))
+    return input;
+  const token = randomToken(20);
+  const ticket: CommentTicket = {
+    collection,
+    contentId,
+    body: input.body,
+    name: member?.displayName || input.authorName.trim(),
+    email: memberRef || input.authorEmail.trim(),
+    memberRef,
+    color: ["butter", "rose", "mint", "sky", "lilac"].includes(
+      String(input.color),
+    )
+      ? String(input.color)
+      : "butter",
+    expiresAt: Date.now() + 60_000,
+  };
+  await capturedCtx.kv.set(`comment:ticket:${token}`, ticket);
+  return {
+    ...input,
+    authorName: ticket.name,
+    authorEmail: `ticket-${token}@members.duanap.cn`,
+  };
+}
+
+export async function discardKanadeComment(input: Record<string, unknown>) {
+  const token = String(input.authorEmail).match(
+    /^ticket-([a-f0-9]{40})@members\.duanap\.cn$/,
+  )?.[1];
+  if (token && capturedCtx)
+    await capturedCtx.kv.delete(`comment:ticket:${token}`);
 }

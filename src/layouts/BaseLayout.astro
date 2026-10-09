@@ -8,6 +8,9 @@ import "@fontsource-variable/noto-sans-sc";
 import "@fontsource-variable/jetbrains-mono";
 import Navigation from "../components/header/Navigation.vue";
 import Welcome from "../components/header/Welcome.astro";
+import HeroCarousel from "../components/header/HeroCarousel.vue";
+import FooterLinks from "../components/FooterLinks.astro";
+import { getKanadeSiteSettings, heroSlides } from "../lib/site-settings";
 import Search from "../components/header/Search.vue";
 import MainContainer from "../components/MainContainer.vue";
 import { getPosts, summarize } from "../lib/posts";
@@ -36,6 +39,8 @@ const {
   seo,
 } = Astro.props;
 const posts = (await getPosts(Astro.locals)).map(summarize);
+const cmsSettings = await getKanadeSiteSettings(Astro.locals);
+const slides = home ? heroSlides(cmsSettings) : [];
 const defaultPageTitle = title
   ? `${title} · ${siteInfo.title}`
   : `${siteInfo.title} · ${siteInfo.titleSuffix}`;
@@ -116,12 +121,21 @@ const robots = noindex ? "noindex, follow" : meta?.robots;
     </a>
     <Navigation pathname={Astro.url.pathname} client:load />
     <Search posts={posts} client:load />
-    <Welcome
-      compact={!home}
-      title={heroTitle}
-      subtitle={heroSubtitle}
-      headingLevel={article ? 2 : 1}
-    />
+    {slides.length ? (
+      <HeroCarousel
+        slides={slides}
+        options={cmsSettings.heroCarousel}
+        fallback={welcomeConfig.bgImage}
+        client:load
+      />
+    ) : (
+      <Welcome
+        compact={!home}
+        title={heroTitle}
+        subtitle={heroSubtitle}
+        headingLevel={article ? 2 : 1}
+      />
+    )}
     <MainContainer>
       <main id="main-content" tabindex="-1">
         <slot />
@@ -142,6 +156,7 @@ const robots = noindex ? "noindex, follow" : meta?.robots;
         <a href="/rss.xml">{t("common.rss")}</a> ·{" "}
         <a href="/about/">{t("common.aboutSite")}</a>
       </p>
+      <FooterLinks />
     </footer>
     <button
       class="back-top"

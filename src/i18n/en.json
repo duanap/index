@@ -284,5 +284,19 @@
   "member.moreFavorites": "More favorites",
   "member.moreComments": "More comments",
   "activity.like": "Like",
-  "activity.favorite": "Favorite"
+  "activity.favorite": "Favorite",
+  "comments.heading": "Comments",
+  "comments.email": "Email (private)",
+  "comments.submit": "Post comment",
+  "comments.published": "Comment published",
+  "guestbook.pending": "Submitted. It will appear after approval.",
+  "guestbook.serverNotice": "New notes are saved on the site and published after approval. Email stays private.",
+  "guestbook.localHistory": "Local history",
+  "carousel.label": "Home carousel",
+  "carousel.role": "carousel",
+  "carousel.previous": "Previous slide",
+  "carousel.next": "Next slide",
+  "carousel.slide": "Slide {count}",
+  "carousel.play": "Play carousel",
+  "carousel.pause": "Pause carousel"
 }

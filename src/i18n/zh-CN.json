@@ -284,5 +284,19 @@
   "member.moreFavorites": "更多收藏",
   "member.moreComments": "更多评论",
   "activity.like": "点赞",
-  "activity.favorite": "收藏"
+  "activity.favorite": "收藏",
+  "comments.heading": "评论",
+  "comments.email": "邮箱（不公开）",
+  "comments.submit": "提交评论",
+  "comments.published": "评论已发布",
+  "guestbook.pending": "留言已提交，审核后公开。",
+  "guestbook.serverNotice": "新留言保存在网站，审核后公开。邮箱不公开。",
+  "guestbook.localHistory": "本机历史",
+  "carousel.label": "首页轮播",
+  "carousel.role": "轮播",
+  "carousel.previous": "上一张",
+  "carousel.next": "下一张",
+  "carousel.slide": "第 {count} 张",
+  "carousel.play": "播放轮播",
+  "carousel.pause": "暂停轮播"
 }

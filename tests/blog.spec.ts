@@ -87,27 +87,29 @@ test("Theme persistence across reloads and pages", async ({ page }) => {
   await expect(page.locator("html")).not.toHaveClass(/dark/);
 });
 
-test("Colored notes: save, escape, reload, and delete", async ({ page }) => {
+test("Server notes are submitted for review and never exposed before approval", async ({
+  page,
+}) => {
   await page.goto("/messages/");
   await expect(page.locator(".guestbook")).toHaveAttribute(
     "data-ready",
     "true",
   );
   await page.getByLabel(t("guestbook.name")).fill("测试访客");
-  const text = '<img src=x onerror="alert(1)"> 测试留言';
-  await page.getByRole("textbox", { name: t("guestbook.content") }).fill(text);
-  await page.getByRole("radio", { name: t("paper.sky.label") }).check();
-  await page.getByRole("button", { name: t("guestbook.submit") }).click();
-  await expect(page.locator(".message")).toHaveAttribute("data-color", "sky");
-  await expect(page.locator(".message .message-main > p")).toHaveText(text);
-  await expect(page.locator(".message .message-main img")).toHaveCount(0);
-  await expect(page.getByRole("status")).toContainText(t("guestbook.saved"));
-  await page.reload();
-  await expect(page.locator(".message .message-main > p")).toHaveText(text);
-  await expect(page.locator(".message")).toHaveAttribute("data-color", "sky");
+  await page.getByLabel(t("comments.email")).fill("guest@example.test");
   await page
-    .getByRole("button", { name: t("guestbook.delete", { name: "测试访客" }) })
-    .click();
+    .getByRole("textbox", { name: t("guestbook.content") })
+    .fill('<img src=x onerror="alert(1)"> 待审核');
+  await page.getByRole("radio", { name: t("paper.sky.label") }).check();
+  const submission = page.waitForResponse(
+    (response) =>
+      response.url().includes("/_emdash/api/comments/wall/") &&
+      response.request().method() === "POST",
+  );
+  await page.getByRole("button", { name: t("guestbook.submit") }).click();
+  const submitted = await submission;
+  expect(submitted.status(), await submitted.text()).toBe(201);
+  await expect(page.getByRole("status")).toContainText(t("guestbook.pending"));
   await expect(page.locator(".message")).toHaveCount(0);
   await page.reload();
   await expect(page.locator(".message")).toHaveCount(0);
@@ -163,21 +165,21 @@ test("Legacy note migration, invalid colors, and chronological order", async ({
     "新访客",
   ]);
   await page.getByLabel(t("guestbook.name")).fill("迁移后访客");
+  await page.getByLabel(t("comments.email")).fill("guest@example.test");
   await page
     .getByRole("textbox", { name: t("guestbook.content") })
-    .fill("新旧留言一起保存");
+    .fill("新留言需要审核");
   await page.getByRole("button", { name: t("guestbook.submit") }).click();
-  await expect(page.locator(".message")).toHaveCount(3);
-  await expect(page.locator(".message .note-author strong").first()).toHaveText(
-    "迁移后访客",
-  );
+  await expect(page.getByRole("status")).toContainText(t("guestbook.pending"));
+  await expect(page.locator(".message")).toHaveCount(2);
   await page.reload();
-  await expect(page.locator(".message")).toHaveCount(3);
-  await expect(page.locator(".message .message-main > p")).toContainText([
-    "新旧留言一起保存",
-    "颜色字段异常也能阅读",
-    "原有留言仍然保留",
-  ]);
+  await expect(page.locator(".message")).toHaveCount(2);
+  await page
+    .getByRole("button", { name: t("guestbook.delete", { name: "旧访客" }) })
+    .click();
+  await expect(page.locator(".message")).toHaveCount(1);
+  await page.reload();
+  await expect(page.locator(".message")).toHaveCount(1);
 });
 
 test("Five note colors, long messages, and dark theme layout", async ({
@@ -195,20 +197,25 @@ test("Five note colors, long messages, and dark theme layout", async ({
   const colors = ["butter", "rose", "mint", "sky", "lilac"].map((color) =>
     t(`paper.${color}.label` as Parameters<typeof t>[0]),
   );
+  await page.evaluate(
+    (names) =>
+      localStorage.setItem(
+        "kanade:guestbook:v1",
+        JSON.stringify(
+          names.map((name, i) => ({
+            id: String(i),
+            name,
+            content: i === 4 ? "长留言".repeat(166) + "完结" : name + "的心情",
+            date: "2026-09-01T00:00:00Z",
+            color: ["butter", "rose", "mint", "sky", "lilac"][i],
+          })),
+        ),
+      ),
+    colors,
+  );
+  await page.reload();
   for (const color of colors) {
     await page.getByRole("radio", { name: color }).check();
-    await page.getByLabel(t("guestbook.name")).fill(color);
-    await page
-      .getByRole("textbox", { name: t("guestbook.content") })
-      .fill(
-        color === t("paper.lilac.label")
-          ? "长留言".repeat(166) + "完结"
-          : `${color}的心情\n今天也要开心`,
-      );
-    await page.getByRole("button", { name: t("guestbook.submit") }).click();
-    await expect(
-      page.locator(".message .note-author strong").first(),
-    ).toHaveText(color);
   }
   await expect(page.locator(".message")).toHaveCount(5);
   await expect(page.locator(".note-count")).toHaveText(
@@ -217,7 +224,7 @@ test("Five note colors, long messages, and dark theme layout", async ({
   expect(
     await page
       .locator(".message .message-main > p")
-      .first()
+      .last()
       .evaluate((element) => element.textContent?.length),
   ).toBe(500);
   const lightColors = await page
@@ -268,21 +275,22 @@ test("Recovery from corrupt storage and blank messages", async ({ page }) => {
   );
   await page.goto("/messages/");
   await expect(page.getByRole("alert")).toBeVisible();
+  await page.getByLabel(t("comments.email")).fill("guest@example.test");
   await page.getByLabel(t("guestbook.name")).fill("   ");
   await page.getByRole("textbox", { name: t("guestbook.content") }).fill("   ");
   await page.getByRole("button", { name: t("guestbook.submit") }).click();
   await expect(page.getByRole("alert")).toContainText(t("guestbook.required"));
+  await page.getByLabel(t("comments.email")).fill("guest@example.test");
   await page.getByLabel(t("guestbook.name")).fill("访客");
   await page
     .getByRole("textbox", { name: t("guestbook.content") })
     .fill("现在恢复正常");
   await page.getByRole("button", { name: t("guestbook.submit") }).click();
-  await expect(page.locator(".message .message-main > p")).toHaveText(
-    "现在恢复正常",
-  );
+  await expect(page.getByRole("status")).toContainText(t("guestbook.pending"));
+  await expect(page.locator(".message")).toHaveCount(0);
 });
 
-test("Blocked storage: themes work and notes report saving failure", async ({
+test("Blocked storage: themes work and server notes can still submit", async ({
   page,
 }) => {
   const errors: string[] = [];
@@ -306,14 +314,13 @@ test("Blocked storage: themes work and notes report saving failure", async ({
   );
   await page.getByRole("button", { name: t("nav.dark") }).click();
   await expect(page.locator("html")).toHaveClass(/dark/);
+  await page.getByLabel(t("comments.email")).fill("guest@example.test");
   await page.getByLabel(t("guestbook.name")).fill("访客");
   await page
     .getByRole("textbox", { name: t("guestbook.content") })
     .fill("这条应报告保存失败");
   await page.getByRole("button", { name: t("guestbook.submit") }).click();
-  await expect(page.getByRole("alert")).toContainText(
-    t("guestbook.saveFailed"),
-  );
+  await expect(page.getByRole("status")).toContainText(t("guestbook.pending"));
   await expect(page.locator(".message")).toHaveCount(0);
   expect(errors).toEqual([]);
 });

@@ -66,6 +66,7 @@ export default defineConfig({
       },
       storage: { entrypoint: projectPath("src/server/storage.ts"), config: {} },
       siteUrl: site.origin,
+      admin: { messageBoardCollection: "wall" },
       plugins: [
         duanapMembersPlugin(projectPath("src/plugins/members/index.ts")),
         {
