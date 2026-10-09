@@ -137,7 +137,7 @@ onUnmounted(() => {
   font-weight: 400;
 }
 .brand-dot {
-  color: #ffb4ca;
+  color: #f8d39e;
   margin-left: -7px;
 }
 nav {
@@ -192,7 +192,7 @@ nav a.active::after {
   background: color-mix(in srgb, var(--card) 92%, transparent);
   color: var(--text);
   backdrop-filter: blur(18px);
-  box-shadow: 0 3px 18px #4b314511;
+  box-shadow: 0 3px 18px #4b352511;
 }
 .scrolled nav a.active,
 .scrolled .brand-flower {

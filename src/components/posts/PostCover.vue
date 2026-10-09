@@ -69,8 +69,8 @@ const labels: Record<string, { icon: string; title: string; sub: string }> = {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #79539c;
-  background: #eee6f7;
+  color: #94714c;
+  background: #f0e1c7;
   padding: 28px 12px;
   isolation: isolate;
 }
@@ -146,8 +146,8 @@ small {
   opacity: 0.5;
 }
 .css {
-  background: #fbe4e5;
-  color: #b76f85;
+  background: #fae6c8;
+  color: #a46b2e;
 }
 .vue,
 .life {
@@ -171,7 +171,7 @@ small {
   color: #8283b5;
 }
 .featured {
-  background: #e9e1f4;
+  background: #efe0bf;
 }
 :global(.dark .post-cover) {
   filter: brightness(0.75) saturate(0.8);

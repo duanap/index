@@ -210,7 +210,7 @@ const style = {
   aspect-ratio: 16/9;
   min-height: 160px;
   overflow: hidden;
-  background: #344157;
+  background: #4c392a;
   color: white;
 }
 .hero-slide {
@@ -239,7 +239,7 @@ const style = {
 .hero-overlay {
   position: absolute;
   inset: 0;
-  background: rgba(15, 24, 40, var(--hero-overlay));
+  background: rgba(40, 28, 16, var(--hero-overlay));
 }
 .hero-caption {
   position: relative;
@@ -247,7 +247,7 @@ const style = {
   padding: 50px clamp(24px, 7vw, 110px) 70px;
   text-align: var(--hero-align);
   max-width: 100%;
-  text-shadow: 0 2px 20px #16213b80;
+  text-shadow: 0 2px 20px #35251b80;
 }
 .hero-caption h1 {
   font-size: var(--hero-title);

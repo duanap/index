@@ -529,8 +529,8 @@ function tilt(id: string) {
   width: 91px;
   height: 91px;
   flex-shrink: 0;
-  border: 1px dashed #db9baf;
-  outline: 1px solid #e8c2cd80;
+  border: 1px dashed #c4a070;
+  outline: 1px solid #e3c99f80;
   outline-offset: 5px;
   border-radius: 50%;
   color: var(--accent);
@@ -659,12 +659,12 @@ function tilt(id: string) {
   color: var(--paper-ink);
 }
 .paper[data-color="rose"] {
-  --paper-bg: #fbe2e9;
-  --paper-ink: #805165;
-  --paper-muted: #9b6b7c;
-  --paper-tape: #dba6b77a;
-  --paper-line: #d5a4b23d;
-  --paper-fold: #e6bccb;
+  --paper-bg: #fae3c6;
+  --paper-ink: #805a35;
+  --paper-muted: #967146;
+  --paper-tape: #d8b27e7a;
+  --paper-line: #cead793d;
+  --paper-fold: #e4c18f;
 }
 .paper[data-color="mint"] {
   --paper-bg: #e1efdf;
@@ -699,12 +699,12 @@ function tilt(id: string) {
   --paper-fold: #675936;
 }
 .dark .paper[data-color="rose"] {
-  --paper-bg: #4b3542;
-  --paper-ink: #f7d6e4;
-  --paper-muted: #d6b1c2;
-  --paper-tape: #b8839b65;
-  --paper-line: #d399b530;
-  --paper-fold: #6a485b;
+  --paper-bg: #4c3826;
+  --paper-ink: #f7dfb9;
+  --paper-muted: #d7ba91;
+  --paper-tape: #b9916265;
+  --paper-line: #d5af7630;
+  --paper-fold: #6d5031;
 }
 .dark .paper[data-color="mint"] {
   --paper-bg: #34483e;
@@ -865,7 +865,7 @@ textarea.paper-input {
   color: var(--accent);
 }
 .form-error {
-  color: #c65d69;
+  color: #a96832;
 }
 .local-notice {
   display: flex;
@@ -940,7 +940,7 @@ textarea.paper-input {
 .wall-canvas {
   min-height: 630px;
   padding: 37px 27px 22px;
-  background-image: radial-gradient(#c9acb33d 0.9px, transparent 0.9px);
+  background-image: radial-gradient(#c8b28c3d 0.9px, transparent 0.9px);
   background-size: 17px 17px;
 }
 .note-grid {
@@ -959,8 +959,8 @@ textarea.paper-input {
   border-radius: 2px 3px 0 3px;
   background: var(--paper-bg);
   box-shadow:
-    2px 5px 7px #513b4210,
-    0 16px 14px -15px #513b4240;
+    2px 5px 7px #513d2310,
+    0 16px 14px -15px #513d2340;
   transform: rotate(var(--tilt, 0deg));
   transform-origin: 50% 15%;
   transition:
@@ -971,7 +971,7 @@ textarea.paper-input {
 .sticky-note:hover,
 .sticky-note:focus-within {
   transform: rotate(0deg) translateY(-3px);
-  box-shadow: 2px 8px 18px #513b421a;
+  box-shadow: 2px 8px 18px #513d231a;
   z-index: 2;
 }
 .sticky-note.just-posted {
@@ -1124,7 +1124,7 @@ textarea.paper-input {
   min-height: 241px;
   padding: 20px 12px;
   background: transparent;
-  border: 1px dashed #d9b5c1;
+  border: 1px dashed #d5bc96;
   border-radius: 4px;
   color: var(--muted);
   transform: rotate(-1deg);
@@ -1153,7 +1153,7 @@ textarea.paper-input {
   bottom: 22px;
   left: 24px;
   font: 35px var(--font-body);
-  color: #ce9ead;
+  color: #c9a774;
   transform: rotate(-25deg);
   opacity: 0.7;
 }

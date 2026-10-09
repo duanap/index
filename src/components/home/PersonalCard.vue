@@ -90,7 +90,7 @@ const props = defineProps<{ posts: PostSummary[] }>();
   height: 83px;
   border-radius: 26px;
   border: 4px solid var(--card);
-  box-shadow: 0 3px 10px #98637a15;
+  box-shadow: 0 3px 10px #987a5315;
   object-fit: cover;
   transition: transform 0.3s;
 }

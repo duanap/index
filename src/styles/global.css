@@ -3,14 +3,14 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @theme {
-  --color-kanadeLight: #fff1f1;
-  --color-kanadeDark: #111520;
-  --color-kanadeBoxLight: #fff;
-  --color-kanadeBoxDark: #202534;
-  --color-subBoxLight: #ffe8eb;
-  --color-subTextLight: #ee8ca2;
-  --color-subBoxDark: #343044;
-  --color-subTextDark: #eeb0c2;
+  --color-kanadeLight: #fff5e7;
+  --color-kanadeDark: #211b16;
+  --color-kanadeBoxLight: #fffdfa;
+  --color-kanadeBoxDark: #30271f;
+  --color-subBoxLight: #f7e7d1;
+  --color-subTextLight: #a55a2a;
+  --color-subBoxDark: #463528;
+  --color-subTextDark: #edbd82;
   --font-Oxanium-Medium: "Oxanium-Medium", var(--font-body);
 }
 @font-face {
@@ -34,14 +34,14 @@
   --font-code:
     "JetBrains Mono Variable", "Noto Sans SC Variable", "Noto Sans JP Variable",
     monospace;
-  --bg: #fff1f1;
-  --card: #fff;
-  --text: #4c4551;
-  --muted: #938791;
-  --accent: #d85d7e;
-  --accent-soft: #fff0f4;
-  --line: #f3e9ed;
-  --shadow: 0 5px 24px #88566a06;
+  --bg: #fff5e7;
+  --card: #fffdfa;
+  --text: #514333;
+  --muted: #806b59;
+  --accent: #a55a2a;
+  --accent-soft: #f7e7d1;
+  --line: #ede1d1;
+  --shadow: 0 5px 24px #8b603b08;
   color-scheme: light;
 }
 :root:lang(en) {
@@ -58,13 +58,13 @@
     sans-serif;
 }
 :root.dark {
-  --bg: #111520;
-  --card: #202534;
-  --text: #e4deeb;
-  --muted: #aaa2b9;
-  --accent: #f0a2bc;
-  --accent-soft: #343044;
-  --line: #343646;
+  --bg: #211b16;
+  --card: #30271f;
+  --text: #f1e4d2;
+  --muted: #c2ac94;
+  --accent: #edbd82;
+  --accent-soft: #463528;
+  --line: #4b3d30;
   --shadow: 0 5px 24px #00000012;
   color-scheme: dark;
 }
@@ -125,15 +125,15 @@ button:disabled {
   outline-offset: 4px;
 }
 ::selection {
-  background: #f6c8d6;
-  color: #593546;
+  background: #ebc796;
+  color: #573b24;
 }
 ::-webkit-scrollbar {
   width: 7px;
   height: 7px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #eeb3c4;
+  background: #cba77d;
   border-radius: 8px;
 }
 .skip-link {
@@ -324,7 +324,7 @@ a.chip:hover {
   color: var(--accent);
   display: grid;
   place-items: center;
-  box-shadow: 0 4px 16px #a56b8112;
+  box-shadow: 0 4px 16px #a17b4e12;
 }
 .back-top[hidden] {
   display: none;

@@ -159,8 +159,8 @@ onUnmounted(() => {
   pointer-events: auto;
 
   /* Light theme */
-  background: linear-gradient(135deg, #ff9ec8 0%, #ffb8d9 50%, #ffc9e5 100%);
-  box-shadow: 0 2px 6px rgba(255, 158, 200, 0.5);
+  background: linear-gradient(135deg, #d4a35e 0%, #e6c28b 50%, #efd8b5 100%);
+  box-shadow: 0 2px 6px rgba(212, 163, 94, 0.5);
 }
 
 .custom-scrollbar-thumb.is-visible {
@@ -172,19 +172,19 @@ onUnmounted(() => {
 .custom-scrollbar-thumb.is-dragging {
   width: 10px;
   opacity: 1 !important;
-  background: linear-gradient(135deg, #ff7eb3 0%, #ff9ec8 50%, #ffb8d9 100%);
-  box-shadow: 0 4px 12px rgba(255, 126, 179, 0.5);
+  background: linear-gradient(135deg, #bd8642 0%, #d4a35e 50%, #e6c28b 100%);
+  box-shadow: 0 4px 12px rgba(189, 134, 66, 0.5);
 }
 
 /* Dark theme */
 .custom-scrollbar-thumb.dark-mode {
-  background: linear-gradient(135deg, #8b5cf6 0%, #a78bfa 50%, #c4b5fd 100%);
-  box-shadow: 0 2px 6px rgba(139, 92, 246, 0.4);
+  background: linear-gradient(135deg, #af7c44 0%, #c6a071 50%, #dfc6a4 100%);
+  box-shadow: 0 2px 6px rgba(175, 124, 68, 0.4);
 }
 
 .custom-scrollbar-thumb.dark-mode:hover,
 .custom-scrollbar-thumb.dark-mode.is-dragging {
-  background: linear-gradient(135deg, #7c3aed 0%, #8b5cf6 50%, #a78bfa 100%);
-  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.6);
+  background: linear-gradient(135deg, #946232 0%, #af7c44 50%, #c6a071 100%);
+  box-shadow: 0 4px 12px rgba(148, 98, 50, 0.6);
 }
 </style>

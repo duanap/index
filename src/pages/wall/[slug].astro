@@ -1,0 +1,13 @@
+---
+import { getEmDashEntry } from "emdash";
+import { language } from "../../i18n";
+const { entry, error } = await getEmDashEntry("wall", Astro.params.slug!, {
+  locale: language,
+});
+if (error) throw error;
+const entryLocale = (entry?.data as { locale?: string } | undefined)?.locale;
+if (!entry || entryLocale !== language || entry.data.slug !== Astro.params.slug)
+  return Astro.rewrite("/404/");
+// The CMS entry is a stable comment container; its public/preview destination is the wall.
+return Astro.redirect(`/messages/${Astro.url.search}`, 302);
+---

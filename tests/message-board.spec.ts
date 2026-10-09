@@ -98,6 +98,10 @@ test("server notes stay pending, approvals and edits render immediately after bo
   await expect(page.locator(".message .message-main > p")).toContainText(
     "需要审核",
   );
+  const preview = await request.get("/wall/renamed-wall/", { maxRedirects: 0 });
+  expect(preview.status()).toBe(302);
+  expect(preview.headers().location).toBe("/messages/");
+  expect((await request.get("/wall/missing-wall/")).status()).toBe(404);
   expect(
     (
       await request.patch(`/_emdash/api/admin/comments/${pending.id}`, {
