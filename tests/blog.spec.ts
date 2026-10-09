@@ -449,7 +449,16 @@ test("SEO metadata, official sitemap, and RSS consistency", async ({
       (entry) => entry.textContent!,
     );
   }, xml);
-  expect(locations).toHaveLength(14);
+  expect(locations).toHaveLength(20);
+  for (const path of [
+    "/life/",
+    "/projects/",
+    "/archives/",
+    "/archives/2026/",
+    "/archives/2026/09/",
+    "/archives/2026/08/",
+  ])
+    expect(locations).toContain(`https://duanap.cn${path}`);
   expect(locations).toContain(canonical);
   expect(
     locations.some((url) =>

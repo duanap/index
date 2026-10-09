@@ -1,0 +1,104 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import { getPosts } from "../../lib/posts";
+import { getFeatureEntries } from "../../lib/features";
+import { archiveEntries, featureHref } from "../../lib/feature-content";
+import { t, formatDate } from "../../i18n";
+interface Props {
+  year?: string;
+  month?: string;
+}
+const { year, month } = Astro.props;
+const posts = (await getPosts(Astro.locals)).map((post) => ({
+  title: post.data.title,
+  date: post.data.date,
+  href: `/posts/${encodeURIComponent(post.id)}/`,
+}));
+const life = (await getFeatureEntries("life", Astro.locals)).map((entry) => ({
+  title: entry.title,
+  date: entry.date,
+  href: featureHref(entry),
+}));
+const groups = archiveEntries([...posts, ...life], year, month);
+const allGroups = archiveEntries([...posts, ...life]);
+---
+
+<BlogLayout
+  title={t("nav.archives")}
+  heroTitle={t("nav.archives")}
+  heroSubtitle={t("features.archivesIntro")}
+>
+  <nav class="archive-links" aria-label={t("nav.archives")}>
+    <a class="chip" href="/archives/">
+      {t("features.all")}
+    </a>
+    {[...new Set(allGroups.map((group) => group.year))].map((y) => (
+      <a class="chip" href={`/archives/${y}/`}>
+        {y}
+      </a>
+    ))}
+  </nav>
+  {groups.length ? (
+    groups.map((group) => (
+      <section class="card archive-group">
+        <h2>
+          <a href={`/archives/${group.year}/${group.month}/`}>
+            {group.year} / {group.month}
+          </a>
+        </h2>
+        <ol>
+          {group.items.map((item) => (
+            <li>
+              <time datetime={item.date?.toISOString()}>
+                {item.date && formatDate(item.date.toISOString())}
+              </time>
+              <a href={item.href}>{item.title}</a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))
+  ) : (
+    <p class="card archive-group">{t("features.empty")}</p>
+  )}
+</BlogLayout>
+<style>
+  .archive-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+  .archive-group {
+    padding: 22px;
+    margin-bottom: 20px;
+  }
+  .archive-group h2 {
+    font-size: 20px;
+    color: var(--accent);
+  }
+  ol {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px dashed var(--line);
+  }
+  time {
+    font-size: 11px;
+    color: var(--muted);
+  }
+  li a {
+    font-size: 14px;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 600px) {
+    li {
+      grid-template-columns: 90px minmax(0, 1fr);
+    }
+  }
+</style>

@@ -1,0 +1,37 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import FeatureList from "../../components/content/FeatureList.astro";
+import { getFeatureEntries } from "../../lib/features";
+import { t } from "../../i18n";
+const entries = await getFeatureEntries("projects", Astro.locals);
+const type = Astro.url.searchParams.get("type");
+const visible = (
+  type ? entries.filter((entry) => entry.projectType === type) : entries
+).sort((a, b) => Number(b.featured) - Number(a.featured));
+---
+
+<BlogLayout
+  title={t("nav.projects")}
+  heroTitle={t("nav.projects")}
+  heroSubtitle={t("features.projectsIntro")}
+>
+  <nav class="feature-filters" aria-label={t("features.projectType")}>
+    <a class="chip" href="/projects/">
+      {t("features.all")}
+    </a>
+    {["web", "tool", "other"].map((value) => (
+      <a class="chip" href={`/projects/?type=${value}`}>
+        {t(`features.type.${value}` as "features.type.web")}
+      </a>
+    ))}
+  </nav>
+  <FeatureList entries={visible} />
+</BlogLayout>
+<style>
+  .feature-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+</style>

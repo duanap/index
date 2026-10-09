@@ -1,0 +1,15 @@
+---
+import FeatureArchive from "../../../components/content/FeatureArchive.astro";
+const { year, month } = Astro.params;
+if (
+  !year ||
+  !/^\d{4}$/.test(year) ||
+  !month ||
+  !/^\d{1,2}$/.test(month) ||
+  Number(month) < 1 ||
+  Number(month) > 12
+)
+  return Astro.rewrite("/404/");
+---
+
+<FeatureArchive year={year} month={month} />

@@ -4,6 +4,7 @@ import { webpUrl } from "./media/urls";
 export type CmsEntry = { id: string; data: unknown };
 export type Post = {
   id: string;
+  databaseId?: string;
   data: {
     title: string;
     description: string;
@@ -59,6 +60,7 @@ export function normalizePost(entry: CmsEntry, locale: string): Post {
     throw new Error(`Invalid article date: ${entry.id}`);
   return {
     id: String(data.slug || entry.id),
+    databaseId: typeof data.id === "string" ? data.id : undefined,
     data: {
       title: String(data.title || ""),
       description: String(data.excerpt || ""),

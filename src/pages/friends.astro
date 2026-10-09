@@ -1,8 +1,25 @@
 ---
 import { t } from "../i18n";
 import BlogLayout from "../layouts/BlogLayout.astro";
-import { friends } from "../data/friends";
+import { getFeatureEntries } from "../lib/features";
 import { siteInfo, personalInfo } from "../config";
+const icons: Record<string, string> = {
+  astro: "icon-[simple-icons--astro]",
+  vue: "icon-[simple-icons--vuedotjs]",
+  tailwind: "icon-[simple-icons--tailwindcss]",
+  github: "icon-[jam--github]",
+  link: "icon-[lucide--link]",
+};
+const friends = (await getFeatureEntries("friends", Astro.locals)).map(
+  (entry) => ({
+    name: entry.title,
+    description: entry.excerpt,
+    url: entry.url!,
+    label: entry.label,
+    color: entry.color,
+    icon: icons[entry.icon] || icons.link,
+  }),
+);
 ---
 
 <BlogLayout
@@ -38,6 +55,7 @@ import { siteInfo, personalInfo } from "../config";
         </a>
       ))}
     </div>
+    {!friends.length && <p>{t("features.empty")}</p>}
     <div class="section-rule"></div>
     <h3 class="panel-title">
       <span class="icon-[lucide--link]" aria-hidden="true"></span>

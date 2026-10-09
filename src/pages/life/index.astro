@@ -1,0 +1,42 @@
+---
+import BlogLayout from "../../layouts/BlogLayout.astro";
+import FeatureList from "../../components/content/FeatureList.astro";
+import { getFeatureEntries } from "../../lib/features";
+import { t } from "../../i18n";
+const entries = await getFeatureEntries("life", Astro.locals);
+const tag = Astro.url.searchParams.get("tag");
+const visible = tag
+  ? entries.filter((entry) => entry.tags.some((term) => term.slug === tag))
+  : entries;
+const tags = [
+  ...new Map(
+    entries.flatMap((entry) => entry.tags).map((term) => [term.slug, term]),
+  ).values(),
+];
+---
+
+<BlogLayout
+  title={t("nav.life")}
+  heroTitle={t("nav.life")}
+  heroSubtitle={t("features.lifeIntro")}
+>
+  <nav class="feature-filters" aria-label={t("features.tags")}>
+    <a class="chip" href="/life/">
+      {t("features.all")}
+    </a>
+    {tags.map((term) => (
+      <a class="chip" href={`/life/?tag=${encodeURIComponent(term.slug)}`}>
+        {term.label}
+      </a>
+    ))}
+  </nav>
+  <FeatureList entries={visible} />
+</BlogLayout>
+<style>
+  .feature-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+</style>

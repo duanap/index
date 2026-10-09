@@ -247,5 +247,21 @@
   "cover.designTitle": "Just create.",
   "cover.designSubtitle": "TURN AN IDEA INTO SOMETHING",
   "cover.featuredTitle": "Hello, {site}.",
-  "cover.featuredSubtitle": "A NEW STORY BEGINS HERE"
+  "cover.featuredSubtitle": "A NEW STORY BEGINS HERE",
+  "nav.life": "生活记录",
+  "nav.projects": "作品",
+  "nav.archives": "时间归档",
+  "features.featured": "精选",
+  "features.empty": "这里还没有已发布的内容。",
+  "features.all": "全部",
+  "features.tags": "生活标签",
+  "features.projectType": "作品类型",
+  "features.type.web": "网站",
+  "features.type.tool": "工具",
+  "features.type.other": "其他",
+  "features.lifeIntro": "记录日常里的小小片刻。",
+  "features.projectsIntro": "把想法变成可以分享的作品。",
+  "features.archivesIntro": "顺着时间，回看留下的记录。",
+  "features.back": "返回列表",
+  "features.visitProject": "查看作品"
 }

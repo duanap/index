@@ -1,0 +1,36 @@
+---
+import FeatureCard from "./FeatureCard.astro";
+import type { FeatureEntry } from "../../lib/feature-content";
+import { t } from "../../i18n";
+interface Props {
+  entries: FeatureEntry[];
+}
+const { entries } = Astro.props;
+---
+
+{entries.length ? (
+  <div class="feature-grid">
+    {entries.map((entry) => (
+      <FeatureCard entry={entry} />
+    ))}
+  </div>
+) : (
+  <p class="card feature-empty">{t("features.empty")}</p>
+)}
+<style>
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .feature-empty {
+    padding: 32px;
+    color: var(--muted);
+    text-align: center;
+  }
+  @media (max-width: 600px) {
+    .feature-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

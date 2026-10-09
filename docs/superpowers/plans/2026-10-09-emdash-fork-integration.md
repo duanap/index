@@ -54,7 +54,7 @@
 
 ## Task 3: 生活、作品、归档与 CMS 友链
 
-**Files:** 创建 `src/lib/feature-content.ts`、`src/components/content/FeatureCard.astro`、`src/components/content/FeatureList.astro`、`src/pages/life/index.astro`、`src/pages/life/[slug].astro`、`src/pages/projects/index.astro`、`src/pages/projects/[slug].astro`、`src/pages/archives/index.astro`、`src/pages/archives/[year]/index.astro`、`src/pages/archives/[year]/[month].astro`；修改 `src/pages/index.astro`、`src/pages/friends.astro`、`src/lib/sitemap.ts`、`src/pages/rss.xml.ts`、导航配置和三个 locale；测试 `tests/unit/feature-content.test.ts`、`tests/features.spec.ts`。
+**Files:** 创建纯适配 `src/lib/feature-content.ts` 和请求查询 `src/lib/features.ts`、`src/components/content/FeatureCard.astro`、`src/components/content/FeatureList.astro`、共享详情/归档组件与 `src/pages/life/index.astro`、`src/pages/life/[slug].astro`、`src/pages/projects/index.astro`、`src/pages/projects/[slug].astro`、`src/pages/archives/index.astro`、`src/pages/archives/[year]/index.astro`、`src/pages/archives/[year]/[month].astro`；修改 `src/pages/index.astro`、`src/pages/friends.astro`、`src/lib/sitemap.ts`、`src/pages/rss.xml.ts`、导航配置和三个 locale；测试 `tests/unit/feature-content.test.ts`、`tests/features.spec.ts`。
 
 **Interfaces:** `getFeatureEntries(collection: "life" | "projects" | "friends", locals: object): Promise<FeatureEntry[]>`；`getFeatureEntry(collection, slug): Promise<FeatureEntry | undefined>`；`archiveEntries(entries, year?, month?): ArchiveGroup[]`。条目同时保留数据库 ID、slug、locale、日期、SEO、Portable Text 与 media；公开查询通过现有 publicContent 运行。
 

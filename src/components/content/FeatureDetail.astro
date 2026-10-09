@@ -1,0 +1,108 @@
+---
+import type { FeatureEntry } from "../../lib/feature-content";
+import { getHeadings } from "../../lib/cms-posts";
+import Content from "./Content.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { t, formatDate } from "../../i18n";
+interface Props {
+  entry: FeatureEntry;
+}
+const { entry } = Astro.props;
+const headings = getHeadings(entry.content);
+---
+
+<BaseLayout
+  title={entry.title}
+  description={entry.excerpt}
+  seo={entry.seo}
+  heroTitle={t(entry.collection === "life" ? "nav.life" : "nav.projects")}
+  article
+  publishedTime={entry.date?.toISOString()}
+>
+  <div class="shell feature-detail-shell">
+    <article class="card feature-detail" data-content-id={entry.id}>
+      <a class="text-link" href={`/${entry.collection}/`}>
+        ← {t("features.back")}
+      </a>
+      <header class="article-header">
+        <h1>{entry.title}</h1>
+        {entry.date && (
+          <time datetime={entry.date.toISOString()}>
+            {formatDate(entry.date.toISOString())}
+          </time>
+        )}
+        <p>{entry.excerpt}</p>
+      </header>
+      {entry.image && (
+        <img
+          class="feature-detail-image"
+          src={entry.image}
+          alt={entry.title}
+          decoding="async"
+        />
+      )}
+      {headings.length > 0 && (
+        <details class="feature-toc">
+          <summary>{t("article.toc")}</summary>
+          <ol>
+            {headings.map((heading) => (
+              <li>
+                <a href={`#${heading.slug}`}>{heading.text}</a>
+              </li>
+            ))}
+          </ol>
+        </details>
+      )}
+      <div class="prose" id="article-body">
+        <Content value={entry.content} />
+      </div>
+      {entry.collection === "projects" && entry.url && (
+        <a
+          class="btn primary"
+          href={entry.url}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {t("features.visitProject")}
+        </a>
+      )}
+    </article>
+  </div>
+</BaseLayout>
+<style>
+  .feature-detail-shell {
+    padding: 28px 0 50px;
+    max-width: 900px;
+  }
+  .feature-detail {
+    padding: 32px;
+  }
+  .article-header h1 {
+    font-size: clamp(24px, 5vw, 38px);
+    margin: 18px 0;
+    overflow-wrap: anywhere;
+  }
+  .article-header p,
+  time {
+    color: var(--muted);
+    line-height: 1.8;
+  }
+  .feature-detail-image {
+    width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    border-radius: 14px;
+    margin: 24px 0;
+  }
+  .feature-toc {
+    padding: 16px;
+    background: var(--accent-soft);
+    border-radius: 12px;
+    margin: 20px 0;
+  }
+  @media (max-width: 600px) {
+    .feature-detail {
+      padding: 20px;
+    }
+  }
+</style>

@@ -4,7 +4,13 @@ import BlogLayout from "../layouts/BlogLayout.astro";
 import PostFeed from "../components/posts/PostFeed.vue";
 import PostListFallback from "../components/posts/PostListFallback.astro";
 import { getPosts, summarize } from "../lib/posts";
+import { getFeatureEntries } from "../lib/features";
+import FeatureList from "../components/content/FeatureList.astro";
 const posts = (await getPosts(Astro.locals)).map(summarize);
+const life = (await getFeatureEntries("life", Astro.locals)).slice(0, 4);
+const projects = (await getFeatureEntries("projects", Astro.locals))
+  .sort((a, b) => Number(b.featured) - Number(a.featured))
+  .slice(0, 4);
 ---
 
 <BlogLayout home>
@@ -15,8 +21,28 @@ const posts = (await getPosts(Astro.locals)).map(summarize);
   </div>
   <PostFeed posts={posts} client:load />
   <PostListFallback posts={posts} />
+  <section class="home-features">
+    <h2>
+      <a href="/life/">{t("nav.life")} →</a>
+    </h2>
+    <FeatureList entries={life} />
+  </section>
+  <section class="home-features">
+    <h2>
+      <a href="/projects/">{t("nav.projects")} →</a>
+    </h2>
+    <FeatureList entries={projects} />
+  </section>
 </BlogLayout>
 <style>
+  .home-features {
+    margin-top: 28px;
+  }
+  .home-features h2 {
+    font-size: 20px;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
   .hello-strip {
     display: flex;
     align-items: center;

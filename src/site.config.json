@@ -26,13 +26,34 @@
     "avatar": "/images/sudoria.jpg",
     "github": "https://github.com/sudoriaa"
   },
-  "hero": { "image": "/images/hero.webp" },
+  "hero": {
+    "image": "/images/hero.webp"
+  },
   "navigation": [
-    { "label": "nav.home", "icon": "icon-[bx--bxs-home-circle]", "url": "/" },
+    {
+      "label": "nav.home",
+      "icon": "icon-[bx--bxs-home-circle]",
+      "url": "/"
+    },
     {
       "label": "nav.posts",
       "icon": "icon-[material-symbols--article]",
       "url": "/posts/"
+    },
+    {
+      "label": "nav.life",
+      "icon": "icon-[lucide--flower-2]",
+      "url": "/life/"
+    },
+    {
+      "label": "nav.projects",
+      "icon": "icon-[lucide--folder-heart]",
+      "url": "/projects/"
+    },
+    {
+      "label": "nav.archives",
+      "icon": "icon-[lucide--history]",
+      "url": "/archives/"
     },
     {
       "label": "nav.messages",
@@ -70,5 +91,9 @@
       "url": "/messages/"
     }
   ],
-  "text": { "zh-CN": {}, "en": {}, "ja": {} }
+  "text": {
+    "zh-CN": {},
+    "en": {},
+    "ja": {}
+  }
 }

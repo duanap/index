@@ -1,0 +1,10 @@
+---
+import { getFeatureEntry } from "../../lib/features";
+import FeatureDetail from "../../components/content/FeatureDetail.astro";
+const entry = Astro.params.slug
+  ? await getFeatureEntry("life", Astro.params.slug)
+  : undefined;
+if (!entry) return Astro.rewrite("/404/");
+---
+
+<FeatureDetail entry={entry} />

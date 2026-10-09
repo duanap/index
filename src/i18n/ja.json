@@ -247,5 +247,21 @@
   "cover.designTitle": "まず作ってみよう",
   "cover.designSubtitle": "アイデアを形に",
   "cover.featuredTitle": "こんにちは、{site}",
-  "cover.featuredSubtitle": "ここから新しい物語が始まる"
+  "cover.featuredSubtitle": "ここから新しい物語が始まる",
+  "nav.life": "日常",
+  "nav.projects": "作品",
+  "nav.archives": "アーカイブ",
+  "features.featured": "おすすめ",
+  "features.empty": "公開された記事はまだありません。",
+  "features.all": "すべて",
+  "features.tags": "日常のタグ",
+  "features.projectType": "作品の種類",
+  "features.type.web": "ウェブ",
+  "features.type.tool": "ツール",
+  "features.type.other": "その他",
+  "features.lifeIntro": "日々の小さな瞬間を記録します。",
+  "features.projectsIntro": "アイデアから生まれた作品。",
+  "features.archivesIntro": "残してきた記録を時間順にたどります。",
+  "features.back": "一覧へ戻る",
+  "features.visitProject": "作品を見る"
 }
