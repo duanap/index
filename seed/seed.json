@@ -23,6 +23,7 @@
         "search",
         "seo"
       ],
+      "commentsEnabled": true,
       "fields": [
         {
           "slug": "title",
@@ -105,6 +106,207 @@
           "slug": "content",
           "label": "正文",
           "type": "portableText"
+        }
+      ]
+    },
+    {
+      "slug": "life",
+      "label": "生活记录",
+      "labelSingular": "生活记录",
+      "urlPattern": "/life/{slug}/",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "search",
+        "seo"
+      ],
+      "commentsEnabled": true,
+      "dateField": "date",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "标题",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "excerpt",
+          "label": "摘要",
+          "type": "text",
+          "searchable": true
+        },
+        {
+          "slug": "content",
+          "label": "正文",
+          "type": "portableText",
+          "searchable": true
+        },
+        {
+          "slug": "date",
+          "label": "日期",
+          "type": "datetime",
+          "indexed": true
+        },
+        {
+          "slug": "featured_image",
+          "label": "封面图片",
+          "type": "image"
+        }
+      ]
+    },
+    {
+      "slug": "projects",
+      "label": "作品",
+      "labelSingular": "作品",
+      "urlPattern": "/projects/{slug}/",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "search",
+        "seo"
+      ],
+      "commentsEnabled": true,
+      "dateField": "date",
+      "fields": [
+        {
+          "slug": "title",
+          "label": "标题",
+          "type": "string",
+          "required": true,
+          "searchable": true
+        },
+        {
+          "slug": "excerpt",
+          "label": "摘要",
+          "type": "text",
+          "searchable": true
+        },
+        {
+          "slug": "content",
+          "label": "正文",
+          "type": "portableText",
+          "searchable": true
+        },
+        {
+          "slug": "date",
+          "label": "日期",
+          "type": "datetime",
+          "indexed": true
+        },
+        {
+          "slug": "featured_image",
+          "label": "封面图片",
+          "type": "image"
+        },
+        {
+          "slug": "project_type",
+          "label": "作品类型",
+          "type": "select",
+          "default": "web",
+          "validation": {
+            "options": ["web", "tool", "other"]
+          }
+        },
+        {
+          "slug": "project_url",
+          "label": "作品链接",
+          "type": "url"
+        },
+        {
+          "slug": "featured",
+          "label": "精选作品",
+          "type": "boolean",
+          "default": false
+        }
+      ]
+    },
+    {
+      "slug": "wall",
+      "label": "留言墙",
+      "labelSingular": "留言墙",
+      "urlPattern": "/wall/{slug}/",
+      "supports": [
+        "drafts",
+        "revisions",
+        "preview",
+        "scheduling",
+        "search",
+        "seo"
+      ],
+      "commentsEnabled": true,
+      "fields": [
+        {
+          "slug": "title",
+          "label": "标题",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "content",
+          "label": "说明",
+          "type": "portableText"
+        }
+      ]
+    },
+    {
+      "slug": "friends",
+      "label": "友链",
+      "labelSingular": "友链",
+      "routable": false,
+      "urlPattern": "/friends/",
+      "supports": ["drafts", "revisions", "preview"],
+      "fields": [
+        {
+          "slug": "title",
+          "label": "名称",
+          "type": "string",
+          "required": true
+        },
+        {
+          "slug": "description",
+          "label": "介绍",
+          "type": "text"
+        },
+        {
+          "slug": "url",
+          "label": "链接",
+          "type": "url",
+          "required": true
+        },
+        {
+          "slug": "icon",
+          "label": "图标",
+          "type": "select",
+          "default": "link",
+          "validation": {
+            "options": ["astro", "vue", "tailwind", "github", "link"]
+          }
+        },
+        {
+          "slug": "color",
+          "label": "颜色",
+          "type": "select",
+          "default": "purple",
+          "validation": {
+            "options": ["purple", "green", "blue", "pink"]
+          }
+        },
+        {
+          "slug": "label",
+          "label": "标签",
+          "type": "string"
+        },
+        {
+          "slug": "order",
+          "label": "排序",
+          "type": "integer",
+          "default": 0,
+          "indexed": true
         }
       ]
     }
@@ -507,6 +709,14 @@
           "translationOf": "zh-CN-tag-e7a28ee7a28ee5bfb5"
         }
       ]
+    },
+    {
+      "name": "life_tag",
+      "label": "生活标签",
+      "labelSingular": "生活标签",
+      "hierarchical": false,
+      "collections": ["life"],
+      "terms": []
     }
   ],
   "content": {
@@ -6426,6 +6636,230 @@
               "markDefs": []
             }
           ]
+        }
+      }
+    ],
+    "wall": [
+      {
+        "id": "zh-CN-kanade-wall",
+        "slug": "messages",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "留言墙",
+          "content": []
+        }
+      },
+      {
+        "id": "en-kanade-wall",
+        "slug": "messages",
+        "locale": "en",
+        "translationOf": "zh-CN-kanade-wall",
+        "status": "published",
+        "data": {
+          "title": "Guestbook",
+          "content": []
+        }
+      },
+      {
+        "id": "ja-kanade-wall",
+        "slug": "messages",
+        "locale": "ja",
+        "translationOf": "zh-CN-kanade-wall",
+        "status": "published",
+        "data": {
+          "title": "ゲストブック",
+          "content": []
+        }
+      }
+    ],
+    "friends": [
+      {
+        "id": "zh-CN-kanade-friend-astro",
+        "slug": "astro",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "Astro",
+          "url": "https://astro.build/",
+          "icon": "astro",
+          "color": "purple",
+          "order": 0,
+          "description": "为内容而生，让网页回归轻盈。",
+          "label": "静态站点"
+        }
+      },
+      {
+        "id": "zh-CN-kanade-friend-vue",
+        "slug": "vue",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "Vue.js",
+          "url": "https://vuejs.org/",
+          "icon": "vue",
+          "color": "green",
+          "order": 1,
+          "description": "渐进式 JavaScript 框架，交互由此生长。",
+          "label": "前端框架"
+        }
+      },
+      {
+        "id": "zh-CN-kanade-friend-tailwind",
+        "slug": "tailwind",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "Tailwind CSS",
+          "url": "https://tailwindcss.com/",
+          "icon": "tailwind",
+          "color": "blue",
+          "order": 2,
+          "description": "从一个小小的 class，搭起想象中的界面。",
+          "label": "样式工具"
+        }
+      },
+      {
+        "id": "zh-CN-kanade-friend-github",
+        "slug": "github",
+        "locale": "zh-CN",
+        "status": "published",
+        "data": {
+          "title": "Sudoria / GitHub",
+          "url": "https://github.com/sudoriaa",
+          "icon": "github",
+          "color": "pink",
+          "order": 3,
+          "description": "代码、实验，以及还在慢慢实现的想法。",
+          "label": "我的代码"
+        }
+      },
+      {
+        "id": "en-kanade-friend-astro",
+        "slug": "astro",
+        "locale": "en",
+        "translationOf": "zh-CN-kanade-friend-astro",
+        "status": "published",
+        "data": {
+          "title": "Astro",
+          "url": "https://astro.build/",
+          "icon": "astro",
+          "color": "purple",
+          "order": 0,
+          "description": "Built for content, with a lighter web in mind.",
+          "label": "Static sites"
+        }
+      },
+      {
+        "id": "en-kanade-friend-vue",
+        "slug": "vue",
+        "locale": "en",
+        "translationOf": "zh-CN-kanade-friend-vue",
+        "status": "published",
+        "data": {
+          "title": "Vue.js",
+          "url": "https://vuejs.org/",
+          "icon": "vue",
+          "color": "green",
+          "order": 1,
+          "description": "A progressive JavaScript framework for thoughtful interactions.",
+          "label": "Frontend framework"
+        }
+      },
+      {
+        "id": "en-kanade-friend-tailwind",
+        "slug": "tailwind",
+        "locale": "en",
+        "translationOf": "zh-CN-kanade-friend-tailwind",
+        "status": "published",
+        "data": {
+          "title": "Tailwind CSS",
+          "url": "https://tailwindcss.com/",
+          "icon": "tailwind",
+          "color": "blue",
+          "order": 2,
+          "description": "Build the interface you imagine, one class at a time.",
+          "label": "Styling tools"
+        }
+      },
+      {
+        "id": "en-kanade-friend-github",
+        "slug": "github",
+        "locale": "en",
+        "translationOf": "zh-CN-kanade-friend-github",
+        "status": "published",
+        "data": {
+          "title": "Sudoria / GitHub",
+          "url": "https://github.com/sudoriaa",
+          "icon": "github",
+          "color": "pink",
+          "order": 3,
+          "description": "Code, experiments, and ideas slowly taking shape.",
+          "label": "My code"
+        }
+      },
+      {
+        "id": "ja-kanade-friend-astro",
+        "slug": "astro",
+        "locale": "ja",
+        "translationOf": "zh-CN-kanade-friend-astro",
+        "status": "published",
+        "data": {
+          "title": "Astro",
+          "url": "https://astro.build/",
+          "icon": "astro",
+          "color": "purple",
+          "order": 0,
+          "description": "コンテンツのために、ウェブを軽やかに。",
+          "label": "静的サイト"
+        }
+      },
+      {
+        "id": "ja-kanade-friend-vue",
+        "slug": "vue",
+        "locale": "ja",
+        "translationOf": "zh-CN-kanade-friend-vue",
+        "status": "published",
+        "data": {
+          "title": "Vue.js",
+          "url": "https://vuejs.org/",
+          "icon": "vue",
+          "color": "green",
+          "order": 1,
+          "description": "インタラクションを育てるプログレッシブな JavaScript フレームワーク。",
+          "label": "フロントエンド"
+        }
+      },
+      {
+        "id": "ja-kanade-friend-tailwind",
+        "slug": "tailwind",
+        "locale": "ja",
+        "translationOf": "zh-CN-kanade-friend-tailwind",
+        "status": "published",
+        "data": {
+          "title": "Tailwind CSS",
+          "url": "https://tailwindcss.com/",
+          "icon": "tailwind",
+          "color": "blue",
+          "order": 2,
+          "description": "小さなクラスから、思い描く画面を作る。",
+          "label": "スタイルツール"
+        }
+      },
+      {
+        "id": "ja-kanade-friend-github",
+        "slug": "github",
+        "locale": "ja",
+        "translationOf": "zh-CN-kanade-friend-github",
+        "status": "published",
+        "data": {
+          "title": "Sudoria / GitHub",
+          "url": "https://github.com/sudoriaa",
+          "icon": "github",
+          "color": "pink",
+          "order": 3,
+          "description": "コード、実験、少しずつ形になるアイデア。",
+          "label": "私のコード"
         }
       }
     ]

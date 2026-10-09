@@ -3,6 +3,7 @@ import { resolve, basename } from "node:path";
 import { pathToFileURL } from "node:url";
 import matter from "gray-matter";
 import { markdownToBlocks } from "./markdown";
+import { buildFeatureSeed } from "./features.mjs";
 
 const languages = ["zh-CN", "en", "ja"] as const;
 const legacyCategories: Record<string, string> = {
@@ -124,6 +125,7 @@ export async function buildSeed(cwd: string) {
     "search",
     "seo",
   ];
+  const features = await buildFeatureSeed(cwd);
   return {
     version: "1",
     defaultLocale: "zh-CN",
@@ -139,6 +141,7 @@ export async function buildSeed(cwd: string) {
         labelSingular: "文章",
         urlPattern: "/posts/{slug}/",
         supports: support,
+        commentsEnabled: true,
         fields: [
           field("title", "标题", "string", {
             required: true,
@@ -180,6 +183,7 @@ export async function buildSeed(cwd: string) {
           field("content", "正文", "portableText"),
         ],
       },
+      ...features.collections,
     ],
     taxonomies: [
       {
@@ -208,8 +212,9 @@ export async function buildSeed(cwd: string) {
         collections: ["posts"],
         terms,
       },
+      ...features.taxonomies,
     ],
-    content: { posts, pages },
+    content: { posts, pages, ...features.content },
   };
 }
 

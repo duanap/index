@@ -3,6 +3,8 @@ import { spawnSync } from "node:child_process";
 import { resolve, dirname } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { dataPaths } from "../config/runtime.mjs";
+import { writeFile } from "node:fs/promises";
+import { generateProjectEnvTypes } from "../node_modules/emdash/dist/schema/project-env-types.mjs";
 
 /** Prepare local files without resetting existing CMS data or keys. @param {string} [cwd] */
 export async function setup(cwd = process.cwd()) {
@@ -30,6 +32,10 @@ if (
   import.meta.url === pathToFileURL(resolve(process.argv[1])).href
 ) {
   await setup();
+  await writeFile(
+    "emdash-env.d.ts",
+    await generateProjectEnvTypes(process.cwd()),
+  );
   console.log(
     "Local data directories and encryption-key binding prepared. Existing data is preserved.",
   );
